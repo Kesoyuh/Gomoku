@@ -1,0 +1,3 @@
+# Gomoku 五子棋
+Gomuku game with amazing UI and AI on iPhone. 
+Developing in objective-C...
