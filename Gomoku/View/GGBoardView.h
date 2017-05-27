@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GGPlayer.h"
 
 @interface GGBoardView : UIView
+
+- (GGPoint)findPointWithLocation:(CGPoint)location;
+- (void)insertPieceAtPoint:(GGPoint)point playerType:(GGPlayerType)playerType;
+
 
 @end

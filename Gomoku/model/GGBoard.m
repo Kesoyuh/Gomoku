@@ -1,10 +1,10 @@
 #import "GGBoard.h"
 
-static int const DIMENSION = 15;
+static int const BOARD_SIZE = 15;
 
 @interface GGBoard ()
 {
-    GGPieceType _board[DIMENSION][DIMENSION];
+    GGPieceType _board[BOARD_SIZE][BOARD_SIZE];
 }
 
 @end
@@ -15,19 +15,23 @@ static int const DIMENSION = 15;
     self = [super init];
     
     if (self) {
-        for (int i = 0; i < DIMENSION; i++) {
-            for (int j = 0; j < DIMENSION; j++) {
-                _board[i][j] = GGPieceTypeBlank;
-            }
-        }
+        [self initBoard];
     }
     
     return self;
 }
 
+- (void)initBoard {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            _board[i][j] = GGPieceTypeBlank;
+        }
+    }
+}
+
 - (BOOL)canMoveAtPoint:(GGPoint)point {
     return _board[point.i][point.j] == GGPieceTypeBlank;
-};
+}
 
 - (void)makeMove:(GGMove *)move {
     GGPoint point = move.point;
@@ -38,12 +42,12 @@ static int const DIMENSION = 15;
             _board[point.i][point.j] = GGPieceTypeWhite;
         }
     }
-};
+}
 
 - (void)undoMove:(GGMove *)move {
     GGPoint point = move.point;
     _board[point.i][point.j] = GGPieceTypeBlank;
-};
+}
 
 - (BOOL)checkWinAtPoint:(GGPoint)point {
     int count = 1;
@@ -51,19 +55,18 @@ static int const DIMENSION = 15;
     int j = point.j;
     
     // Horizontal
-    for (j++; j < DIMENSION; j++) {
+    for (j++; j < BOARD_SIZE; j++) {
         if (_board[i][j] == _board[point.i][point.j]) {
             count++;
         } else {
-            j = point.j;
             break;
         }
     }
+    j = point.j;
     for (j--; j >= 0; j--) {
         if (_board[i][j] == _board[point.i][point.j]) {
             count++;
         } else {
-            j = point.j;
             break;
         }
     }
@@ -74,19 +77,20 @@ static int const DIMENSION = 15;
     }
     
     // Vertical
-    for (i++; i < DIMENSION; i++) {
+    i = point.i;
+    j = point.j;
+    for (i++; i < BOARD_SIZE; i++) {
         if (_board[i][j] == _board[point.i][point.j]) {
             count++;
         } else {
-            i = point.i;
             break;
         }
     }
+    i = point.i;
     for (i--; i >= 0; i--) {
         if (_board[i][j] == _board[point.i][point.j]) {
             count++;
         } else {
-            i = point.i;
             break;
         }
     }
@@ -97,25 +101,21 @@ static int const DIMENSION = 15;
     }
     
     // Oblique up
-    i++;
-    j++;
-    for (; i < DIMENSION && j < DIMENSION; i++, j++) {
+    i = point.i + 1;
+    j = point.j + 1;
+    for (; i < BOARD_SIZE && j < BOARD_SIZE; i++, j++) {
         if (_board[i][j] == _board[point.i][point.j]) {
             count++;
         } else {
-            i = point.i;
-            j = point.j;
             break;
         }
     }
-    i--;
-    j--;
+    i = point.i - 1;
+    j = point.j - 1;
     for (; i >= 0 && j >= 0; i--, j--) {
         if (_board[i][j] == _board[point.i][point.j]) {
             count++;
         } else {
-            i = point.i;
-            j = point.j;
             break;
         }
     }
@@ -126,25 +126,21 @@ static int const DIMENSION = 15;
     }
     
     // Oblique down
-    i++;
-    j--;
-    for (; i < DIMENSION && j >= 0; i++, j--) {
+    i = point.i + 1;
+    j = point.j - 1;
+    for (; i < BOARD_SIZE && j >= 0; i++, j--) {
         if (_board[i][j] == _board[point.i][point.j]) {
             count++;
         } else {
-            i = point.i;
-            j = point.j;
             break;
         }
     }
-    i--;
-    j++;
-    for (; i >= 0 && j < DIMENSION; i--, j++) {
+    i = point.i - 1;
+    j = point.j + 1;
+    for (; i >= 0 && j < BOARD_SIZE; i--, j++) {
         if (_board[i][j] == _board[point.i][point.j]) {
             count++;
         } else {
-            i = point.i;
-            j = point.j;
             break;
         }
     }
@@ -153,6 +149,6 @@ static int const DIMENSION = 15;
     } else {
         return NO;
     }
-};
+}
 
 @end

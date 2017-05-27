@@ -24,32 +24,30 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5W6-ck-WiD" customClass="GGBoardView">
                                 <rect key="frame" x="0.0" y="146" width="375" height="375"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stone_white" translatesAutoresizingMaskIntoConstraints="NO" id="Su9-E0-U6G">
-                                        <rect key="frame" x="177.5" y="177.5" width="20" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="3qE-Qs-aIN"/>
-                                            <constraint firstAttribute="height" constant="20" id="7fL-l3-5Rc"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
                                 <color key="backgroundColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="Su9-E0-U6G" firstAttribute="centerX" secondItem="5W6-ck-WiD" secondAttribute="centerX" id="QxA-mT-Uaw"/>
-                                    <constraint firstItem="Su9-E0-U6G" firstAttribute="centerY" secondItem="5W6-ck-WiD" secondAttribute="centerY" id="d9u-IZ-xRS"/>
                                     <constraint firstAttribute="width" secondItem="5W6-ck-WiD" secondAttribute="height" multiplier="1:1" id="lQl-j0-OKh"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Sr-lK-4Yy">
+                                <rect key="frame" x="168.5" y="587" width="39" height="30"/>
+                                <state key="normal" title="Reset"/>
+                                <connections>
+                                    <action selector="btnReset_click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z2p-13-1gr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="3Sr-lK-4Yy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7ka-Td-lPg"/>
                             <constraint firstItem="5W6-ck-WiD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="J19-Yp-DoC"/>
                             <constraint firstItem="5W6-ck-WiD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WA7-rI-HaB"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3Sr-lK-4Yy" secondAttribute="bottom" constant="50" id="WC9-FN-uag"/>
                             <constraint firstAttribute="trailing" secondItem="5W6-ck-WiD" secondAttribute="trailing" id="fnD-Fs-bSf"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="boardView" destination="5W6-ck-WiD" id="bSf-km-nZa"/>
+                        <outlet property="boardView" destination="5W6-ck-WiD" id="xY7-V4-BdM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -57,7 +55,4 @@
             <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="stone_white" width="80" height="80"/>
-    </resources>
 </document>

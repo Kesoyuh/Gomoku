@@ -19,29 +19,46 @@
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
-    
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    [self addGestureRecognizer: tapGestureRecognizer];
     return self;
 }
 
-- (void)handleTap:(UITapGestureRecognizer *)tapGestureRecognizer {
-    CGPoint location = [tapGestureRecognizer locationInView:self];
+- (GGPoint)findPointWithLocation:(CGPoint)location {
     int row = (int)((location.y - margin) / interval);
     double modY = (location.y - margin) / interval - row;
-    if(modY > 0.5) {
+    if(modY > 0.5 && row < 14) {
         row++;
     }
     
     int column = (int)((location.x - margin) / interval);
     double modX = (location.x - margin) / interval - column;
-    if(modX > 0.5) {
+    if(modX > 0.5 && column < 14) {
         column++;
     }
-    NSLog(@"%d, %d", column, row);
-    
-    
+    GGPoint point;
+    point.i = row;
+    point.j = column;
+    NSLog(@"%d, %d", row, column);
+    return point;
 }
+
+- (void)insertPieceAtPoint:(GGPoint)point playerType:(GGPlayerType)playerType{
+    NSString *imageName;
+    if (playerType == GGPlayerTypeBlack) {
+        imageName = @"piece_black";
+    } else {
+        imageName = @"piece_white";
+    }
+    
+    CGFloat imageSize = interval;
+    
+    CGFloat originX = margin + point.j * interval - imageSize / 2;
+    CGFloat originY = margin + point.i * interval - imageSize / 2;
+    UIImageView *pieceImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+    CGRect rect = CGRectMake(originX, originY, imageSize, imageSize);
+    pieceImage.frame = rect;
+    [self addSubview:pieceImage];
+}
+
 
 - (void)drawRect:(CGRect)rect {
     margin = 15;

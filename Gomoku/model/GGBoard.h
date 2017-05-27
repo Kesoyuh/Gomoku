@@ -11,6 +11,7 @@ typedef NS_ENUM(NSInteger, GGPieceType)
 };
 
 - (instancetype)init;
+- (void)initBoard;
 - (BOOL)canMoveAtPoint:(GGPoint)point;
 - (void)makeMove:(GGMove *)move;
 - (void)undoMove:(GGMove *)move;

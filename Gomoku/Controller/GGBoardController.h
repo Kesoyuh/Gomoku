@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GGBoardView.h"
+#import "GGPlayer.h"
 
 @interface GGBoardController : UIViewController
+
+@property (weak, nonatomic) IBOutlet GGBoardView *boardView;
+- (IBAction)btnReset_click:(UIButton *)sender;
 
 
 @end

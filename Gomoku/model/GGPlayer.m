@@ -23,6 +23,6 @@
 
 - (void)update:(GGMove *)move {
     [_board makeMove:move];
-};
+}
 
 @end
