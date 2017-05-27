@@ -1,14 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Board Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="GGBoardController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +21,43 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5W6-ck-WiD" customClass="GGBoardView">
+                                <rect key="frame" x="0.0" y="146" width="375" height="375"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stone_white" translatesAutoresizingMaskIntoConstraints="NO" id="Su9-E0-U6G">
+                                        <rect key="frame" x="177.5" y="177.5" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="3qE-Qs-aIN"/>
+                                            <constraint firstAttribute="height" constant="20" id="7fL-l3-5Rc"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Su9-E0-U6G" firstAttribute="centerX" secondItem="5W6-ck-WiD" secondAttribute="centerX" id="QxA-mT-Uaw"/>
+                                    <constraint firstItem="Su9-E0-U6G" firstAttribute="centerY" secondItem="5W6-ck-WiD" secondAttribute="centerY" id="d9u-IZ-xRS"/>
+                                    <constraint firstAttribute="width" secondItem="5W6-ck-WiD" secondAttribute="height" multiplier="1:1" id="lQl-j0-OKh"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="5W6-ck-WiD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="J19-Yp-DoC"/>
+                            <constraint firstItem="5W6-ck-WiD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WA7-rI-HaB"/>
+                            <constraint firstAttribute="trailing" secondItem="5W6-ck-WiD" secondAttribute="trailing" id="fnD-Fs-bSf"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="boardView" destination="5W6-ck-WiD" id="bSf-km-nZa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="stone_white" width="80" height="80"/>
+    </resources>
 </document>
