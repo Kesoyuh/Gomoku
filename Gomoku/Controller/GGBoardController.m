@@ -26,15 +26,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    [self.boardView addGestureRecognizer: tap];
+    self.boardView.delegate = self;
+    
 }
 
-- (void)handleTap:(UITapGestureRecognizer *)tapGestureRecognizer {
-    CGPoint location = [tapGestureRecognizer locationInView:self.boardView];
-    
-    GGPoint point = [self.boardView findPointWithLocation:location];
-    
+- (void)boardView:(GGBoardView *)boardView didTapOnPoint:(GGPoint)point {
     if([board canMoveAtPoint:point]) {
         GGMove *move = [[GGMove alloc] initWithPlayer:playerType point:point];
         [board makeMove:move];
@@ -50,6 +46,8 @@
         }
     }
 }
+
+
 
 - (void)handleWin{
     NSString *alertTitle;

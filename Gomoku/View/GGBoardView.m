@@ -19,7 +19,17 @@
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self addGestureRecognizer: tap];
     return self;
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)tapGestureRecognizer {
+    CGPoint location = [tapGestureRecognizer locationInView:self];
+    
+    GGPoint point = [self findPointWithLocation:location];
+    
+    [self.delegate boardView:self didTapOnPoint:point];
 }
 
 - (GGPoint)findPointWithLocation:(CGPoint)location {

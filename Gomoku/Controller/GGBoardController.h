@@ -10,10 +10,10 @@
 #import "GGBoardView.h"
 #import "GGPlayer.h"
 
-@interface GGBoardController : UIViewController
+@interface GGBoardController : UIViewController <GGBoardViewDelegate>
 
 @property (weak, nonatomic) IBOutlet GGBoardView *boardView;
-- (IBAction)btnReset_click:(UIButton *)sender;
 
+- (IBAction)btnReset_click:(UIButton *)sender;
 
 @end
