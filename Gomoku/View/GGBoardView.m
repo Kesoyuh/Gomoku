@@ -13,6 +13,8 @@
     CGFloat interval;
 }
 
+@property (strong, nonatomic) GGIndicatorView *indicator;
+
 @end
 
 @implementation GGBoardView
@@ -21,6 +23,7 @@
     self = [super initWithCoder:aDecoder];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self addGestureRecognizer: tap];
+    self.indicator = [[GGIndicatorView alloc] init];
     return self;
 }
 
@@ -71,6 +74,16 @@
 
 
 - (void)drawRect:(CGRect)rect {
+    UIImage *background = [UIImage imageNamed:@"board2"];
+    [background drawInRect:rect];
+    
+    // Draw border
+    CGRect borderRect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.height, rect.size.width);
+    UIBezierPath *border = [UIBezierPath bezierPathWithRoundedRect:borderRect cornerRadius:0];
+    border.lineWidth = 8;
+    [[UIColor blackColor] setStroke];
+    [border stroke];
+    
     margin = 15;
     interval =(self.bounds.size.width - margin * 2) / 14;
 

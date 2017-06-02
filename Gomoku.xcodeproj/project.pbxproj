@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0C31C1D71ED914F400B35F43 /* GGBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C31C1D61ED914F400B35F43 /* GGBoardView.m */; };
-		0C31C1D91ED940DB00B35F43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C31C1D81ED940DB00B35F43 /* Assets.xcassets */; };
 		0C31C1DD1ED9524600B35F43 /* GGBoardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C31C1DC1ED9524600B35F43 /* GGBoardController.m */; };
 		0CC96DAC1ED1583C00484771 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC96DAB1ED1583C00484771 /* main.m */; };
 		0CC96DAF1ED1583C00484771 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC96DAE1ED1583C00484771 /* AppDelegate.m */; };
 		0CC96DB51ED1583C00484771 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC96DB31ED1583C00484771 /* Main.storyboard */; };
 		0CC96DBA1ED1583C00484771 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC96DB81ED1583C00484771 /* LaunchScreen.storyboard */; };
+		0CCA87841EE10F8D006CAA70 /* GGMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCA87831EE10F8D006CAA70 /* GGMenuController.m */; };
+		0CCA87861EE12290006CAA70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CCA87851EE12290006CAA70 /* Assets.xcassets */; };
+		0CCA878C1EE14F3A006CAA70 /* GGIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCA878B1EE14F3A006CAA70 /* GGIndicatorView.m */; };
 		7BBBFC411ED9193200B6A9FD /* GGMove.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBFC401ED9193200B6A9FD /* GGMove.m */; };
 		7BBBFC441ED91B0F00B6A9FD /* GGBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBFC431ED91B0F00B6A9FD /* GGBoard.m */; };
 		7BBBFC471ED94EDD00B6A9FD /* GGPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBFC461ED94EDD00B6A9FD /* GGPlayer.m */; };
@@ -22,7 +24,6 @@
 /* Begin PBXFileReference section */
 		0C31C1D51ED914F400B35F43 /* GGBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGBoardView.h; path = View/GGBoardView.h; sourceTree = "<group>"; };
 		0C31C1D61ED914F400B35F43 /* GGBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GGBoardView.m; path = View/GGBoardView.m; sourceTree = "<group>"; };
-		0C31C1D81ED940DB00B35F43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C31C1DB1ED9524600B35F43 /* GGBoardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGBoardController.h; path = Controller/GGBoardController.h; sourceTree = "<group>"; };
 		0C31C1DC1ED9524600B35F43 /* GGBoardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GGBoardController.m; path = Controller/GGBoardController.m; sourceTree = "<group>"; };
 		0CC96DA71ED1583C00484771 /* Gomoku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gomoku.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,6 +33,11 @@
 		0CC96DB41ED1583C00484771 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0CC96DB91ED1583C00484771 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0CC96DBB1ED1583C00484771 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CCA87821EE10F8D006CAA70 /* GGMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGMenuController.h; path = Controller/GGMenuController.h; sourceTree = "<group>"; };
+		0CCA87831EE10F8D006CAA70 /* GGMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GGMenuController.m; path = Controller/GGMenuController.m; sourceTree = "<group>"; };
+		0CCA87851EE12290006CAA70 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0CCA878A1EE14F3A006CAA70 /* GGIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGIndicatorView.h; path = View/GGIndicatorView.h; sourceTree = "<group>"; };
+		0CCA878B1EE14F3A006CAA70 /* GGIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GGIndicatorView.m; path = View/GGIndicatorView.m; sourceTree = "<group>"; };
 		7BBBFC3F1ED9193200B6A9FD /* GGMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGMove.h; sourceTree = "<group>"; };
 		7BBBFC401ED9193200B6A9FD /* GGMove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGMove.m; sourceTree = "<group>"; };
 		7BBBFC421ED91B0F00B6A9FD /* GGBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGBoard.h; sourceTree = "<group>"; };
@@ -56,6 +62,8 @@
 			children = (
 				0C31C1D51ED914F400B35F43 /* GGBoardView.h */,
 				0C31C1D61ED914F400B35F43 /* GGBoardView.m */,
+				0CCA878A1EE14F3A006CAA70 /* GGIndicatorView.h */,
+				0CCA878B1EE14F3A006CAA70 /* GGIndicatorView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -65,6 +73,8 @@
 			children = (
 				0C31C1DB1ED9524600B35F43 /* GGBoardController.h */,
 				0C31C1DC1ED9524600B35F43 /* GGBoardController.m */,
+				0CCA87821EE10F8D006CAA70 /* GGMenuController.h */,
+				0CCA87831EE10F8D006CAA70 /* GGMenuController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -93,7 +103,7 @@
 				7BBBFC3E1ED9151200B6A9FD /* Model */,
 				0CC96DAD1ED1583C00484771 /* AppDelegate.h */,
 				0CC96DAE1ED1583C00484771 /* AppDelegate.m */,
-				0C31C1D81ED940DB00B35F43 /* Assets.xcassets */,
+				0CCA87851EE12290006CAA70 /* Assets.xcassets */,
 				0CC96DB31ED1583C00484771 /* Main.storyboard */,
 				0CC96DB81ED1583C00484771 /* LaunchScreen.storyboard */,
 				0CC96DBB1ED1583C00484771 /* Info.plist */,
@@ -184,8 +194,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CC96DBA1ED1583C00484771 /* LaunchScreen.storyboard in Resources */,
-				0C31C1D91ED940DB00B35F43 /* Assets.xcassets in Resources */,
 				0CC96DB51ED1583C00484771 /* Main.storyboard in Resources */,
+				0CCA87861EE12290006CAA70 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,8 +210,10 @@
 				0CC96DAF1ED1583C00484771 /* AppDelegate.m in Sources */,
 				0C31C1D71ED914F400B35F43 /* GGBoardView.m in Sources */,
 				0CC96DAC1ED1583C00484771 /* main.m in Sources */,
+				0CCA87841EE10F8D006CAA70 /* GGMenuController.m in Sources */,
 				0C31C1DD1ED9524600B35F43 /* GGBoardController.m in Sources */,
 				7BBBFC471ED94EDD00B6A9FD /* GGPlayer.m in Sources */,
+				0CCA878C1EE14F3A006CAA70 /* GGIndicatorView.m in Sources */,
 				7BBBFC441ED91B0F00B6A9FD /* GGBoard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

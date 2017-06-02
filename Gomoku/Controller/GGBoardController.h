@@ -14,6 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet GGBoardView *boardView;
 
-- (IBAction)btnReset_click:(UIButton *)sender;
+
 
 @end
