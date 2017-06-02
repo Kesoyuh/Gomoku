@@ -2,11 +2,11 @@
 
 @implementation GGMove
 
-- (instancetype)initWithPlayer:(GGPlayerType)player point:(GGPoint)point {
+- (instancetype)initWithPlayer:(GGPlayerType)playerType point:(GGPoint)point {
     self = [super init];
     
     if (self) {
-        _player = player;
+        _playerType = playerType;
         _point = point;
     }
     
