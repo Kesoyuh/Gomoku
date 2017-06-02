@@ -5,6 +5,6 @@
 
 - (instancetype)initWithPlayer:(GGPlayerType)player;
 - (void)update:(GGMove *)move;
-- (GGMove *)move;
+- (GGMove *)getMove;
 
 @end

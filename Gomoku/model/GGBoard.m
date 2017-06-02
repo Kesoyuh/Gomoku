@@ -188,6 +188,13 @@ typedef NS_ENUM(NSInteger, GGTupleType)
         }
     }
     
+    if (index == 0) {
+        GGPoint point;
+        point.i = 7;
+        point.j = 7;
+        return point;
+    }
+    
     int maxScore = 0;
     int maxScoreIndex = 0;
     
@@ -207,7 +214,7 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     
     // Horizontal
     for (; i > i - 5; i--) {
-        if (i > 0 && i + 4 < BOARD_SIZE) {
+        if (i >= 0 && i + 4 < BOARD_SIZE) {
             int m = i;
             int n = j;
             int black = 0;
@@ -227,7 +234,7 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     // Vertical
     i = point.i;
     for (; j > j - 5; j--) {
-        if (j > 0 && j + 4 < BOARD_SIZE) {
+        if (j >= 0 && j + 4 < BOARD_SIZE) {
             int m = i;
             int n = j;
             int black = 0;
@@ -248,7 +255,7 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     i = point.i;
     j = point.j;
     for (; i > i - 5 && j > j - 5; i--, j--) {
-        if (i > 0 && j > 0 && i + 4 < BOARD_SIZE && j + 4 < BOARD_SIZE) {
+        if (i >= 0 && j >= 0 && i + 4 < BOARD_SIZE && j + 4 < BOARD_SIZE) {
             int m = i;
             int n = j;
             int black = 0;
@@ -269,7 +276,7 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     i = point.i;
     j = point.j;
     for (; i > i - 5 && j < j + 5; i--, j++) {
-        if (i > 0 && j < BOARD_SIZE && i + 4 < BOARD_SIZE && j - 4 > 0) {
+        if (i >= 0 && j < BOARD_SIZE && i + 4 < BOARD_SIZE && j - 4 > 0) {
             int m = i;
             int n = j;
             int black = 0;
@@ -375,12 +382,14 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     int i = point.i;
     int j = point.j;
     
-    for (int m = i - 2; m <= i + 2; m++) {
-        for (int n = j - 2; n <= j + 2; n++) {
-            if (m < BOARD_SIZE && n < BOARD_SIZE) {
-                if (abs(m - i) + abs(n - j) != 3 && abs(m - i) + abs(n - j) != 0) {
-                    if (_board[m][n] != GGPieceTypeBlank) {
-                        return YES;
+    if (_board[i][j] == GGPieceTypeBlank) {
+        for (int m = i - 2; m <= i + 2; m++) {
+            for (int n = j - 2; n <= j + 2; n++) {
+                if (m >= 0 && m < BOARD_SIZE && n >= 0 && n < BOARD_SIZE) {
+                    if (abs(m - i) + abs(n - j) != 3 && abs(m - i) + abs(n - j) != 0) {
+                        if (_board[m][n] != GGPieceTypeBlank) {
+                            return YES;
+                        }
                     }
                 }
             }

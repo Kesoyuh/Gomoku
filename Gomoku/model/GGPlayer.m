@@ -1,6 +1,5 @@
 #import "GGPlayer.h"
 
-static int const BOARD_SIZE = 15;
 
 @interface GGPlayer ()
 {
@@ -32,12 +31,16 @@ static int const BOARD_SIZE = 15;
 }
 
 - (void)update:(GGMove *)move {
-    [_board makeMove:move];
+    if (move != nil) {
+        [_board makeMove:move];
+    }
 }
 
-- (GGMove *)move {
+- (GGMove *)getMove {
     GGPoint point = [_board findBestPointWithPlayer:_playerType];
-    return [[GGMove alloc] initWithPlayer:_playerType point:point];
+    GGMove *move = [[GGMove alloc] initWithPlayer:_playerType point:point];
+    [self update:move];
+    return move;
 }
 
 @end

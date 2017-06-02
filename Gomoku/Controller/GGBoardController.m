@@ -11,6 +11,7 @@
 @interface GGBoardController () {
     GGBoard *board;
     GGPlayerType playerType;
+    GGPlayer *AI;
     int timeSecBlack;
     int timeMinBlack;
     int timeSecWhite;
@@ -42,6 +43,41 @@
     self.boardView.delegate = self;
     [self startTimer];
     
+    // AI move for the first time
+    AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeBlack];
+    [self AIPlayWithMove:nil];
+    
+}
+
+- (void)AIPlayWithMove:(GGMove *)move {
+    [AI update:move];
+    GGMove *AIMove = [AI getMove];
+    [board makeMove:AIMove];
+    [self.boardView insertPieceAtPoint:AIMove.point playerType:AIMove.playerType];
+    if ([board checkWinAtPoint:AIMove.point]) {
+        [self handleWin];
+        NSLog(@"win %ld", (long)playerType);
+    }
+    [self switchPlayer];
+}
+
+- (void)boardView:(GGBoardView *)boardView didTapOnPoint:(GGPoint)point {
+    
+    if([board canMoveAtPoint:point]) {
+        
+        GGMove *move = [[GGMove alloc] initWithPlayer:playerType point:point];
+        [board makeMove:move];
+        
+        [self.boardView insertPieceAtPoint:point playerType:playerType];
+
+        if ([board checkWinAtPoint:point]) {
+            [self handleWin];
+            NSLog(@"win %ld", (long)playerType);
+        } else {
+            [self switchPlayer];
+            [self AIPlayWithMove:move];
+        }
+    }
 }
 
 - (void)startTimer {
@@ -108,20 +144,13 @@
     [self stopTimer];
 }
 
-- (void)boardView:(GGBoardView *)boardView didTapOnPoint:(GGPoint)point {
-    if([board canMoveAtPoint:point]) {
-        GGMove *move = [[GGMove alloc] initWithPlayer:playerType point:point];
-        [board makeMove:move];
-        [self.boardView insertPieceAtPoint:point playerType:playerType];
-        if ([board checkWinAtPoint:point]) {
-            [self handleWin];
-            NSLog(@"win %ld", (long)playerType);
-        }
-        if (playerType == GGPlayerTypeBlack) {
-            playerType = GGPlayerTypeWhite;
-        } else {
-            playerType = GGPlayerTypeBlack;
-        }
+
+
+- (void)switchPlayer {
+    if (playerType == GGPlayerTypeBlack) {
+        playerType = GGPlayerTypeWhite;
+    } else {
+        playerType = GGPlayerTypeBlack;
     }
 }
 
