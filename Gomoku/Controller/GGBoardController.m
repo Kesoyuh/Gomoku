@@ -162,6 +162,9 @@
     playerType = GGPlayerTypeBlack;
     [self startTimer];
     [self.boardView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    AI = nil;
+    AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeBlack];
+    [self AIPlayWithMove:nil];
     
 }
 

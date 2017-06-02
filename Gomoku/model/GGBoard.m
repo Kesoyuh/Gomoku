@@ -199,7 +199,9 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     int maxScoreIndex = 0;
     
     for (int i = 0; i < index; i++) {
-        if ([self getScoreWithPoint:pointArray[i] player:playerType] > maxScore) {
+        int score = [self getScoreWithPoint:pointArray[i] player:playerType];
+        if (score > maxScore) {
+            maxScore = score;
             maxScoreIndex = i;
         }
     }
@@ -213,7 +215,7 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     int j = point.j;
     
     // Horizontal
-    for (; i > i - 5; i--) {
+    for (; i > point.i - 5; i--) {
         if (i >= 0 && i + 4 < BOARD_SIZE) {
             int m = i;
             int n = j;
@@ -233,7 +235,7 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     
     // Vertical
     i = point.i;
-    for (; j > j - 5; j--) {
+    for (; j > point.j - 5; j--) {
         if (j >= 0 && j + 4 < BOARD_SIZE) {
             int m = i;
             int n = j;
@@ -254,7 +256,7 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     // Oblique up
     i = point.i;
     j = point.j;
-    for (; i > i - 5 && j > j - 5; i--, j--) {
+    for (; i > point.i - 5 && j > point.j - 5; i--, j--) {
         if (i >= 0 && j >= 0 && i + 4 < BOARD_SIZE && j + 4 < BOARD_SIZE) {
             int m = i;
             int n = j;
@@ -275,7 +277,7 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     // Oblique down
     i = point.i;
     j = point.j;
-    for (; i > i - 5 && j < j + 5; i--, j++) {
+    for (; i > point.i - 5 && j < point.j + 5; i--, j++) {
         if (i >= 0 && j < BOARD_SIZE && i + 4 < BOARD_SIZE && j - 4 > 0) {
             int m = i;
             int n = j;
@@ -386,7 +388,7 @@ typedef NS_ENUM(NSInteger, GGTupleType)
         for (int m = i - 2; m <= i + 2; m++) {
             for (int n = j - 2; n <= j + 2; n++) {
                 if (m >= 0 && m < BOARD_SIZE && n >= 0 && n < BOARD_SIZE) {
-                    if (abs(m - i) + abs(n - j) != 3 && abs(m - i) + abs(n - j) != 0) {
+                    if (abs(m - i) + abs(n - j) != 0 && abs(m - i) + abs(n - j) != 3) {
                         if (_board[m][n] != GGPieceTypeBlank) {
                             return YES;
                         }
