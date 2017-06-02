@@ -1,7 +1,5 @@
 #import <Foundation/Foundation.h>
 
-@interface GGMove : NSObject
-
 typedef NS_ENUM(NSInteger, GGPlayerType)
 {
     GGPlayerTypeBlack,
@@ -13,9 +11,11 @@ typedef struct {
     int j;
 } GGPoint;
 
-@property (nonatomic, readonly) GGPlayerType player;
+@interface GGMove : NSObject
+
+@property (nonatomic, readonly) GGPlayerType playerType;
 @property (nonatomic, readonly) GGPoint point;
 
-- (instancetype)initWithPlayer:(GGPlayerType)player point:(GGPoint)point;
+- (instancetype)initWithPlayer:(GGPlayerType)playerType point:(GGPoint)point;
 
 @end

@@ -165,7 +165,7 @@
 				TargetAttributes = {
 					0CC96DA61ED1583C00484771 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 7STNWYS4YZ;
+						DevelopmentTeam = H57Q994RQL;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -334,7 +334,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7STNWYS4YZ;
+				DEVELOPMENT_TEAM = H57Q994RQL;
 				INFOPLIST_FILE = Gomoku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.unimelb.Gomoku;
@@ -346,7 +346,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7STNWYS4YZ;
+				DEVELOPMENT_TEAM = H57Q994RQL;
 				INFOPLIST_FILE = Gomoku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.unimelb.Gomoku;
