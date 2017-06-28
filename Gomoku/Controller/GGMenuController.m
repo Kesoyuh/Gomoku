@@ -7,6 +7,7 @@
 //
 
 #import "GGMenuController.h"
+#import "GGBoardController.h"
 #import "GGPlayer.h"
 
 @interface GGMenuController ()
@@ -48,10 +49,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UIButton *button = sender;
     NSLog(@"%@", button.titleLabel.text);
+    GGBoardController *boardController = segue.destinationViewController;
     if ([button.titleLabel.text  isEqual: @"单人游戏"]) {
-        // TODO
+        boardController.gameMode = GGModeSingle;
+        
     } else if ([button.titleLabel.text  isEqual: @"双人游戏"]) {
-        // TODO
+        boardController.gameMode = GGModeDouble;
     }
 }
 @end

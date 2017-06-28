@@ -10,9 +10,16 @@
 #import "GGBoardView.h"
 #import "GGPlayer.h"
 
+typedef NS_ENUM(NSInteger, GGMode)
+{
+    GGModeSingle,
+    GGModeDouble
+};
+
 @interface GGBoardController : UIViewController <GGBoardViewDelegate>
 
 @property (weak, nonatomic) IBOutlet GGBoardView *boardView;
+@property (assign, nonatomic) enum GGMode gameMode;
 
 
 

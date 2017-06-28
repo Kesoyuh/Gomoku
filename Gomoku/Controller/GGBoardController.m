@@ -34,31 +34,55 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     board = [[GGBoard alloc] init];
-    playerType = GGPlayerTypeBlack;
     
+    // First piece will always be black
+    playerType = GGPlayerTypeBlack;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.boardView.delegate = self;
-    [self startTimer];
     
-    // AI move for the first time
-    AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeBlack];
-    [self AIPlayWithMove:nil];
-    
+    if (_gameMode == GGModeSingle) {
+        [self choosePlayerType];
+    } else {
+        [self startTimer];
+    }
+}
+
+- (void)choosePlayerType {
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请选择先后手" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionBlack = [UIAlertAction actionWithTitle:@"先手" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self startTimer];
+        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeWhite];
+    }];
+    UIAlertAction *actionWhite = [UIAlertAction actionWithTitle:@"后手" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self startTimer];
+        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeBlack];
+        [self AIPlayWithMove:nil];
+    }];
+    [alert addAction:actionBlack];
+    [alert addAction:actionWhite];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)AIPlayWithMove:(GGMove *)move {
-    [AI update:move];
-    GGMove *AIMove = [AI getMove];
-    [board makeMove:AIMove];
-    [self.boardView insertPieceAtPoint:AIMove.point playerType:AIMove.playerType];
-    if ([board checkWinAtPoint:AIMove.point]) {
-        [self handleWin];
-        NSLog(@"win %ld", (long)playerType);
-    }
-    [self switchPlayer];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [AI update:move];
+        GGMove *AIMove = [AI getMove];
+        [board makeMove:AIMove];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.boardView insertPieceAtPoint:AIMove.point playerType:AIMove.playerType];
+            if ([board checkWinAtPoint:AIMove.point]) {
+                [self handleWin];
+                NSLog(@"win %ld", (long)playerType);
+            }
+            [self switchPlayer];
+        });
+        
+    });
+    
 }
 
 - (void)boardView:(GGBoardView *)boardView didTapOnPoint:(GGPoint)point {
@@ -75,7 +99,10 @@
             NSLog(@"win %ld", (long)playerType);
         } else {
             [self switchPlayer];
-            [self AIPlayWithMove:move];
+            
+            if (_gameMode == GGModeSingle) {
+                [self AIPlayWithMove:move];
+            }            
         }
     }
 }
@@ -156,15 +183,17 @@
 
 
 - (IBAction)btnReset_TouchUp:(UIButton *)sender {
-
+    [self stopTimer];
     [board initBoard];
     self.boardView.userInteractionEnabled = YES;
     playerType = GGPlayerTypeBlack;
-    [self startTimer];
     [self.boardView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    AI = nil;
-    AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeBlack];
-    [self AIPlayWithMove:nil];
+    
+    if (_gameMode == GGModeSingle) {
+        [self choosePlayerType];
+    } else {
+        [self startTimer];
+    }
     
 }
 
