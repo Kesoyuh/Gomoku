@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gff-J2-rJE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gff-J2-rJE">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,41 +26,58 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOg-qO-1EL">
-                                <rect key="frame" x="114" y="100" width="146" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <state key="normal" title="单人游戏">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Sh-4t-10C">
+                                <rect key="frame" x="107.5" y="250" width="160" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="JHp-zs-nMJ"/>
+                                    <constraint firstAttribute="width" constant="160" id="lrP-C7-ecK"/>
+                                </constraints>
+                                <state key="normal" title="双人游戏" image="double">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
-                                <connections>
-                                    <action selector="btnSinglePlayer_TouchUp:" destination="gff-J2-rJE" eventType="touchUpInside" id="otx-gN-XRH"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Sh-4t-10C">
-                                <rect key="frame" x="114" y="229" width="146" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <state key="normal" title="双人游戏">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
+                                <state key="highlighted" image="double_highlighted"/>
                                 <connections>
                                     <action selector="btnDoublePlayer_TouchUp:" destination="gff-J2-rJE" eventType="touchUpInside" id="XoM-Ta-Iod"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLB-vp-60T">
-                                <rect key="frame" x="114" y="356" width="146" height="57"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <state key="normal" title="设        置">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLB-vp-60T">
+                                <rect key="frame" x="107" y="360" width="160" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="EuY-Bd-lFl"/>
+                                    <constraint firstAttribute="height" constant="50" id="aqR-RM-cAW"/>
+                                </constraints>
+                                <state key="normal" title="设        置" image="settings">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
+                                <state key="highlighted" image="settings_highlighted"/>
                                 <connections>
                                     <action selector="btnSetting_TouchUp:" destination="gff-J2-rJE" eventType="touchUpInside" id="Alv-Th-A99"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOg-qO-1EL">
+                                <rect key="frame" x="107" y="140" width="160" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="bRG-yJ-5PA"/>
+                                    <constraint firstAttribute="width" constant="160" id="rrz-AU-hdU"/>
+                                </constraints>
+                                <state key="normal" title="单人游戏" image="single">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <state key="highlighted" image="single_highlighted"/>
+                                <connections>
+                                    <action selector="btnSinglePlayer_TouchUp:" destination="gff-J2-rJE" eventType="touchUpInside" id="otx-gN-XRH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eLB-vp-60T" firstAttribute="top" secondItem="1Sh-4t-10C" secondAttribute="bottom" constant="60" id="0pd-F6-E6Z"/>
+                            <constraint firstItem="VOg-qO-1EL" firstAttribute="centerX" secondItem="HBQ-vt-qqT" secondAttribute="centerX" id="Jxp-Hp-fFO"/>
+                            <constraint firstItem="1Sh-4t-10C" firstAttribute="centerX" secondItem="HBQ-vt-qqT" secondAttribute="centerX" id="MYV-X2-al0"/>
+                            <constraint firstItem="eLB-vp-60T" firstAttribute="centerX" secondItem="HBQ-vt-qqT" secondAttribute="centerX" id="PYO-7T-Ksj"/>
+                            <constraint firstItem="1Sh-4t-10C" firstAttribute="top" secondItem="VOg-qO-1EL" secondAttribute="bottom" constant="60" id="ZZJ-1B-kNU"/>
+                            <constraint firstItem="VOg-qO-1EL" firstAttribute="top" secondItem="sZf-gX-gNO" secondAttribute="bottom" constant="120" id="q5D-HP-1Ke"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="backgroundImage" destination="ON4-gt-h0R" id="fHl-aS-loy"/>
@@ -69,7 +86,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="szG-Rc-sRi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-615" y="137"/>
+            <point key="canvasLocation" x="-615.20000000000005" y="136.28185907046478"/>
         </scene>
         <!--Board Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -186,7 +203,13 @@
     <resources>
         <image name="background" width="930" height="1000"/>
         <image name="background2" width="1198" height="1472"/>
+        <image name="double" width="430" height="125"/>
+        <image name="double_highlighted" width="430" height="125"/>
         <image name="piece_black" width="80" height="80"/>
         <image name="piece_white" width="80" height="80"/>
+        <image name="settings" width="430" height="125"/>
+        <image name="settings_highlighted" width="430" height="125"/>
+        <image name="single" width="430" height="125"/>
+        <image name="single_highlighted" width="430" height="125"/>
     </resources>
 </document>

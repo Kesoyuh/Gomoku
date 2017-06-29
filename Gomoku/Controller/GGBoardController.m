@@ -23,9 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *timerWhiteLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timerBlackLabel;
 
-- (IBAction)btnReset_TouchUp:(UIButton *)sender;
-- (IBAction)btnUndo_TouchUp:(UIButton *)sender;
-- (IBAction)btnBack_TouchUp:(UIButton *)sender;
 
 @end
 
@@ -85,27 +82,6 @@
     
 }
 
-- (void)boardView:(GGBoardView *)boardView didTapOnPoint:(GGPoint)point {
-    
-    if([board canMoveAtPoint:point]) {
-        
-        GGMove *move = [[GGMove alloc] initWithPlayer:playerType point:point];
-        [board makeMove:move];
-        
-        [self.boardView insertPieceAtPoint:point playerType:playerType];
-
-        if ([board checkWinAtPoint:point]) {
-            [self handleWin];
-            NSLog(@"win %ld", (long)playerType);
-        } else {
-            [self switchPlayer];
-            
-            if (_gameMode == GGModeSingle) {
-                [self AIPlayWithMove:move];
-            }            
-        }
-    }
-}
 
 - (void)startTimer {
     // initialize the timer label
@@ -171,8 +147,6 @@
     [self stopTimer];
 }
 
-
-
 - (void)switchPlayer {
     if (playerType == GGPlayerTypeBlack) {
         playerType = GGPlayerTypeWhite;
@@ -181,6 +155,32 @@
     }
 }
 
+#pragma mark - GGBoardViewDelegate
+
+- (void)boardView:(GGBoardView *)boardView didTapOnPoint:(GGPoint)point {
+    
+    if([board canMoveAtPoint:point]) {
+        
+        GGMove *move = [[GGMove alloc] initWithPlayer:playerType point:point];
+        [board makeMove:move];
+        
+        [boardView insertPieceAtPoint:point playerType:playerType];
+        
+        if ([board checkWinAtPoint:point]) {
+            [self handleWin];
+            NSLog(@"win %ld", (long)playerType);
+        } else {
+            [self switchPlayer];
+            
+            if (_gameMode == GGModeSingle) {
+                [self AIPlayWithMove:move];
+            }
+        }
+    }
+}
+
+
+#pragma mark - IBAction
 
 - (IBAction)btnReset_TouchUp:(UIButton *)sender {
     [self stopTimer];
