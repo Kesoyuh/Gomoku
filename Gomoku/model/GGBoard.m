@@ -278,7 +278,7 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     i = point.i;
     j = point.j;
     for (; i > point.i - 5 && j < point.j + 5; i--, j++) {
-        if (i >= 0 && j < BOARD_SIZE && i + 4 < BOARD_SIZE && j - 4 > 0) {
+        if (i >= 0 && j < BOARD_SIZE && i + 4 < BOARD_SIZE && j - 4 >= 0) {
             int m = i;
             int n = j;
             int black = 0;
