@@ -205,7 +205,7 @@ typedef NS_ENUM(NSInteger, GGTupleType)
             maxScoreIndex = i;
         }
     }
-    
+//    sleep(2);
     return pointArray[maxScoreIndex];
 }
 

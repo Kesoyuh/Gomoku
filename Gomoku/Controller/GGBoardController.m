@@ -65,6 +65,7 @@
 }
 
 - (void)AIPlayWithMove:(GGMove *)move {
+    self.boardView.userInteractionEnabled = NO;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [AI update:move];
         GGMove *AIMove = [AI getMove];
@@ -76,6 +77,7 @@
                 NSLog(@"win %ld", (long)playerType);
             }
             [self switchPlayer];
+            self.boardView.userInteractionEnabled = YES;
         });
         
     });
