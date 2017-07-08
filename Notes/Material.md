@@ -13,3 +13,5 @@
 [Alpha-Beta剪枝极大极小博弈算法](http://zhaidongyan.cn/2017/02/25/alpha-beta-AIWuziqi/)
 
 [人机版五子棋两种算法概述](http://blog.csdn.net/onezeros/article/details/5542379)
+
+**[计算机五子棋博奕系统的研究与实现](http://www.taodocs.com/p-20517708.html)**
