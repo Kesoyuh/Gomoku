@@ -18,6 +18,7 @@
     int timeMinWhite;
     NSTimer *timer;
     
+    
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *timerWhiteLabel;
@@ -31,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     board = [[GGBoard alloc] init];
+    
     
     // First piece will always be black
     playerType = GGPlayerTypeBlack;

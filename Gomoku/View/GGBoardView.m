@@ -11,9 +11,9 @@
 @interface GGBoardView () {
     CGFloat margin;
     CGFloat interval;
+    UIImageView *indicatorView;
 }
 
-@property (strong, nonatomic) GGIndicatorView *indicator;
 
 @end
 
@@ -23,7 +23,9 @@
     self = [super initWithCoder:aDecoder];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self addGestureRecognizer: tap];
-    self.indicator = [[GGIndicatorView alloc] init];
+    
+    indicatorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"indicator"]];
+    
     return self;
 }
 
@@ -70,6 +72,12 @@
     CGRect rect = CGRectMake(originX, originY, imageSize, imageSize);
     pieceImage.frame = rect;
     [self addSubview:pieceImage];
+    
+    indicatorView.frame = rect;
+    if (indicatorView.superview != self) {
+        [self addSubview:indicatorView];
+    }
+    
 }
 
 

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "GGPlayer.h"
-#import "GGIndicatorView.h"
 
 @protocol GGBoardViewDelegate;
 
