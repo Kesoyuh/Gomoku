@@ -1,5 +1,6 @@
-#import <Foundation/Foundation.h>
 #import "GGMove.h"
+
+static int const GRID_SIZE = 15;
 
 typedef NS_ENUM(NSInteger, GGPieceType)
 {
@@ -9,13 +10,19 @@ typedef NS_ENUM(NSInteger, GGPieceType)
 };
 
 @interface GGBoard : NSObject
+{
+    @protected
+    GGPieceType _grid[GRID_SIZE][GRID_SIZE];
+}
 
 - (instancetype)init;
 - (void)initBoard;
+- (BOOL)isEmpty;
 - (BOOL)canMoveAtPoint:(GGPoint)point;
 - (void)makeMove:(GGMove *)move;
 - (void)undoMove:(GGMove *)move;
 - (BOOL)checkWinAtPoint:(GGPoint)point;
-- (GGPoint)findBestPointWithPlayer:(GGPlayerType)playerType;
+
+- (GGMove *)findBestMove;
 
 @end

@@ -1,11 +1,9 @@
 #import "GGPlayer.h"
 
-
 @interface GGPlayer ()
 {
-    GGBoard *_board;
     GGPlayerType _playerType;
-    GGPieceType _pieceType;
+    GGBoard *_board;
 }
 
 @end
@@ -17,14 +15,7 @@
     
     if (self) {
         _playerType = playerType;
-        
-        if (_playerType == GGPlayerTypeBlack) {
-            _pieceType = GGPieceTypeBlack;
-        } else {
-            _pieceType = GGPieceTypeWhite;
-        }
-        
-        _board = [[GGBoard alloc] init];
+        _board = [[GGMinimaxAI alloc] initWithPlayer:playerType];
     }
     
     return self;
@@ -37,10 +28,18 @@
 }
 
 - (GGMove *)getMove {
-    GGPoint point = [_board findBestPointWithPlayer:_playerType];
-    GGMove *move = [[GGMove alloc] initWithPlayer:_playerType point:point];
-    [self update:move];
-    return move;
+    if ([_board isEmpty]) {
+        GGPoint point;
+        point.i = 7;
+        point.j = 7;
+        GGMove *move = [[GGMove alloc] initWithPlayer:_playerType point:point];
+        [self update:move];
+        return move;
+    } else {
+        GGMove *move = [_board findBestMove];
+        [self update:move];
+        return move;
+    }
 }
 
 @end

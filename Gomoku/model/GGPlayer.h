@@ -1,5 +1,5 @@
-#import <Foundation/Foundation.h>
-#import "GGBoard.h"
+#import "GGGreedyAI.h"
+#import "GGMinimaxAI.h"
 
 @interface GGPlayer : NSObject
 
