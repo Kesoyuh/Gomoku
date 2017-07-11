@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, GGTupleType)
 }
 
 - (int)MinimaxWithDepth:(int)depth who:(int)who alpha:(int)alpha beta:(int)beta {
-    if (depth == 0 || [self finished]) {
+    if (depth == 0) {
         return who * [self evaluate];
     }
     
@@ -389,7 +389,11 @@ typedef NS_ENUM(NSInteger, GGTupleType)
                 return GGTupleTypeFive;
         }
     } else {
-        return 0;
+        if (piece >= 5) {
+            return GGTupleTypeFive;
+        } else {
+            return 0;
+        }
     }
 }
 
