@@ -22,6 +22,8 @@
 		7BBBFC411ED9193200B6A9FD /* GGMove.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBFC401ED9193200B6A9FD /* GGMove.m */; };
 		7BBBFC441ED91B0F00B6A9FD /* GGBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBFC431ED91B0F00B6A9FD /* GGBoard.m */; };
 		7BBBFC471ED94EDD00B6A9FD /* GGPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBFC461ED94EDD00B6A9FD /* GGPlayer.m */; };
+		7BE071911F10D01100A6BB03 /* GGGreedyAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE071901F10D01100A6BB03 /* GGGreedyAI.m */; };
+		7BE071941F10DC8B00A6BB03 /* GGMinimaxAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE071931F10DC8B00A6BB03 /* GGMinimaxAI.m */; };
 		B655F7E0DA1B8DCF62EF1682 /* Pods_Gomoku.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD9DBAC9E17C13B7F6A10D2 /* Pods_Gomoku.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +56,10 @@
 		7BBBFC431ED91B0F00B6A9FD /* GGBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGBoard.m; sourceTree = "<group>"; };
 		7BBBFC451ED94EDD00B6A9FD /* GGPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGPlayer.h; sourceTree = "<group>"; };
 		7BBBFC461ED94EDD00B6A9FD /* GGPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGPlayer.m; sourceTree = "<group>"; };
+		7BE0718F1F10D01100A6BB03 /* GGGreedyAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGGreedyAI.h; sourceTree = "<group>"; };
+		7BE071901F10D01100A6BB03 /* GGGreedyAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGGreedyAI.m; sourceTree = "<group>"; };
+		7BE071921F10DC8B00A6BB03 /* GGMinimaxAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGMinimaxAI.h; sourceTree = "<group>"; };
+		7BE071931F10DC8B00A6BB03 /* GGMinimaxAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGMinimaxAI.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +151,10 @@
 				7BBBFC401ED9193200B6A9FD /* GGMove.m */,
 				7BBBFC451ED94EDD00B6A9FD /* GGPlayer.h */,
 				7BBBFC461ED94EDD00B6A9FD /* GGPlayer.m */,
+				7BE0718F1F10D01100A6BB03 /* GGGreedyAI.h */,
+				7BE071901F10D01100A6BB03 /* GGGreedyAI.m */,
+				7BE071921F10DC8B00A6BB03 /* GGMinimaxAI.h */,
+				7BE071931F10DC8B00A6BB03 /* GGMinimaxAI.m */,
 			);
 			name = Model;
 			path = model;
@@ -295,11 +305,13 @@
 			files = (
 				7BBBFC411ED9193200B6A9FD /* GGMove.m in Sources */,
 				0C06D01A1F14C8D70037B86D /* GGHostListController.m in Sources */,
+				7BE071911F10D01100A6BB03 /* GGGreedyAI.m in Sources */,
 				0CC96DAF1ED1583C00484771 /* AppDelegate.m in Sources */,
 				0C31C1D71ED914F400B35F43 /* GGBoardView.m in Sources */,
 				0CC96DAC1ED1583C00484771 /* main.m in Sources */,
 				0CCA87841EE10F8D006CAA70 /* GGMenuController.m in Sources */,
 				0C31C1DD1ED9524600B35F43 /* GGBoardController.m in Sources */,
+				7BE071941F10DC8B00A6BB03 /* GGMinimaxAI.m in Sources */,
 				7BBBFC471ED94EDD00B6A9FD /* GGPlayer.m in Sources */,
 				7BBBFC441ED91B0F00B6A9FD /* GGBoard.m in Sources */,
 			);

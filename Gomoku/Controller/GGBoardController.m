@@ -77,9 +77,10 @@
             if ([board checkWinAtPoint:AIMove.point]) {
                 [self handleWin];
                 NSLog(@"win %ld", (long)playerType);
+            } else {
+                [self switchPlayer];
+                self.boardView.userInteractionEnabled = YES;
             }
-            [self switchPlayer];
-            self.boardView.userInteractionEnabled = YES;
         });
         
     });
@@ -142,6 +143,7 @@
     } else {
         alertTitle = @"White Win!";
     }
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:@"" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
     [alert addAction:action];
