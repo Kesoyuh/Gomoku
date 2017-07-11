@@ -42,8 +42,12 @@
 - (IBAction)btnDoublePlayer_TouchUp:(UIButton *)sender {
     [self performSegueWithIdentifier:@"startGame" sender:sender];
 }
+- (IBAction)btnLANGame_TouchUp:(UIButton *)sender {
+    [self performSegueWithIdentifier:@"findGame" sender:sender];
+}
 
 - (IBAction)btnSetting_TouchUp:(UIButton *)sender {
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C06D0131F14BD2F0037B86D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C06D0121F14BD2F0037B86D /* CFNetwork.framework */; };
+		0C06D0151F14BD3D0037B86D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C06D0141F14BD3D0037B86D /* Security.framework */; };
+		0C06D0171F14BD430037B86D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C06D0161F14BD430037B86D /* Foundation.framework */; };
+		0C06D01A1F14C8D70037B86D /* GGHostListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C06D0191F14C8D70037B86D /* GGHostListController.m */; };
 		0C31C1D71ED914F400B35F43 /* GGBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C31C1D61ED914F400B35F43 /* GGBoardView.m */; };
 		0C31C1DD1ED9524600B35F43 /* GGBoardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C31C1DC1ED9524600B35F43 /* GGBoardController.m */; };
 		0CC96DAC1ED1583C00484771 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC96DAB1ED1583C00484771 /* main.m */; };
@@ -18,13 +22,21 @@
 		7BBBFC411ED9193200B6A9FD /* GGMove.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBFC401ED9193200B6A9FD /* GGMove.m */; };
 		7BBBFC441ED91B0F00B6A9FD /* GGBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBFC431ED91B0F00B6A9FD /* GGBoard.m */; };
 		7BBBFC471ED94EDD00B6A9FD /* GGPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBFC461ED94EDD00B6A9FD /* GGPlayer.m */; };
+		B655F7E0DA1B8DCF62EF1682 /* Pods_Gomoku.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD9DBAC9E17C13B7F6A10D2 /* Pods_Gomoku.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09EBFF66163AA27A22DA0075 /* Pods-Gomoku.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gomoku.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Gomoku/Pods-Gomoku.debug.xcconfig"; sourceTree = "<group>"; };
+		0C06D0121F14BD2F0037B86D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		0C06D0141F14BD3D0037B86D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0C06D0161F14BD430037B86D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0C06D0181F14C8D70037B86D /* GGHostListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGHostListController.h; path = Controller/GGHostListController.h; sourceTree = "<group>"; };
+		0C06D0191F14C8D70037B86D /* GGHostListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GGHostListController.m; path = Controller/GGHostListController.m; sourceTree = "<group>"; };
 		0C31C1D51ED914F400B35F43 /* GGBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGBoardView.h; path = View/GGBoardView.h; sourceTree = "<group>"; };
 		0C31C1D61ED914F400B35F43 /* GGBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GGBoardView.m; path = View/GGBoardView.m; sourceTree = "<group>"; };
 		0C31C1DB1ED9524600B35F43 /* GGBoardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGBoardController.h; path = Controller/GGBoardController.h; sourceTree = "<group>"; };
 		0C31C1DC1ED9524600B35F43 /* GGBoardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GGBoardController.m; path = Controller/GGBoardController.m; sourceTree = "<group>"; };
+		0C7044F4539E688F07C35966 /* Pods-Gomoku.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gomoku.release.xcconfig"; path = "Pods/Target Support Files/Pods-Gomoku/Pods-Gomoku.release.xcconfig"; sourceTree = "<group>"; };
 		0CC96DA71ED1583C00484771 /* Gomoku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gomoku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC96DAB1ED1583C00484771 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0CC96DAD1ED1583C00484771 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -35,6 +47,7 @@
 		0CCA87821EE10F8D006CAA70 /* GGMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGMenuController.h; path = Controller/GGMenuController.h; sourceTree = "<group>"; };
 		0CCA87831EE10F8D006CAA70 /* GGMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GGMenuController.m; path = Controller/GGMenuController.m; sourceTree = "<group>"; };
 		0CCA87851EE12290006CAA70 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6AD9DBAC9E17C13B7F6A10D2 /* Pods_Gomoku.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gomoku.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BBBFC3F1ED9193200B6A9FD /* GGMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGMove.h; sourceTree = "<group>"; };
 		7BBBFC401ED9193200B6A9FD /* GGMove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGMove.m; sourceTree = "<group>"; };
 		7BBBFC421ED91B0F00B6A9FD /* GGBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGBoard.h; sourceTree = "<group>"; };
@@ -48,6 +61,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C06D0171F14BD430037B86D /* Foundation.framework in Frameworks */,
+				0C06D0151F14BD3D0037B86D /* Security.framework in Frameworks */,
+				0C06D0131F14BD2F0037B86D /* CFNetwork.framework in Frameworks */,
+				B655F7E0DA1B8DCF62EF1682 /* Pods_Gomoku.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +87,8 @@
 				0C31C1DC1ED9524600B35F43 /* GGBoardController.m */,
 				0CCA87821EE10F8D006CAA70 /* GGMenuController.h */,
 				0CCA87831EE10F8D006CAA70 /* GGMenuController.m */,
+				0C06D0181F14C8D70037B86D /* GGHostListController.h */,
+				0C06D0191F14C8D70037B86D /* GGHostListController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -79,6 +98,8 @@
 			children = (
 				0CC96DA91ED1583C00484771 /* Gomoku */,
 				0CC96DA81ED1583C00484771 /* Products */,
+				D9A003FD14468D48AB4FF4B5 /* Pods */,
+				E91EB50956D79C31CF6259F9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,6 +150,26 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		D9A003FD14468D48AB4FF4B5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				09EBFF66163AA27A22DA0075 /* Pods-Gomoku.debug.xcconfig */,
+				0C7044F4539E688F07C35966 /* Pods-Gomoku.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E91EB50956D79C31CF6259F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0C06D0161F14BD430037B86D /* Foundation.framework */,
+				0C06D0141F14BD3D0037B86D /* Security.framework */,
+				0C06D0121F14BD2F0037B86D /* CFNetwork.framework */,
+				6AD9DBAC9E17C13B7F6A10D2 /* Pods_Gomoku.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -136,9 +177,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0CC96DBE1ED1583C00484771 /* Build configuration list for PBXNativeTarget "Gomoku" */;
 			buildPhases = (
+				5668EEE0BAD387C8BC6D1559 /* [CP] Check Pods Manifest.lock */,
 				0CC96DA31ED1583C00484771 /* Sources */,
 				0CC96DA41ED1583C00484771 /* Frameworks */,
 				0CC96DA51ED1583C00484771 /* Resources */,
+				88A496A25E223D9A13BDAE9B /* [CP] Embed Pods Frameworks */,
+				AC23C1DEE8FFA743D6E759F2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -196,12 +240,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5668EEE0BAD387C8BC6D1559 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		88A496A25E223D9A13BDAE9B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Gomoku/Pods-Gomoku-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC23C1DEE8FFA743D6E759F2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Gomoku/Pods-Gomoku-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0CC96DA31ED1583C00484771 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7BBBFC411ED9193200B6A9FD /* GGMove.m in Sources */,
+				0C06D01A1F14C8D70037B86D /* GGHostListController.m in Sources */,
 				0CC96DAF1ED1583C00484771 /* AppDelegate.m in Sources */,
 				0C31C1D71ED914F400B35F43 /* GGBoardView.m in Sources */,
 				0CC96DAC1ED1583C00484771 /* main.m in Sources */,
@@ -326,6 +419,7 @@
 		};
 		0CC96DBF1ED1583C00484771 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09EBFF66163AA27A22DA0075 /* Pods-Gomoku.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7STNWYS4YZ;
@@ -338,6 +432,7 @@
 		};
 		0CC96DC01ED1583C00484771 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0C7044F4539E688F07C35966 /* Pods-Gomoku.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7STNWYS4YZ;
