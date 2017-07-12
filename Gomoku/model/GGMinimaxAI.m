@@ -1,5 +1,7 @@
 #import "GGMinimaxAI.h"
 
+static int const MAX_DEEP = 8;
+
 typedef NS_ENUM(NSInteger, GGTupleType)
 {
     GGTupleTypeLiveOne = 10,
@@ -40,16 +42,26 @@ typedef struct {
 }
 
 - (GGMove *)getBestMove {
-    [self MinimaxWithDepth:8 who:1 alpha:-[self maxEvaluateValue] beta:[self maxEvaluateValue]];
+    int score;
+    
+    // iterative deepening
+    for (int deep = 2; deep <= MAX_DEEP; deep += 2) {
+        score = [self MinimaxWithDepth:deep who:1 alpha:-[self maxEvaluateValue] beta:[self maxEvaluateValue]];
+        if (score >= GGTupleTypeLiveFour) {
+            [self makeMove:_bestMove];
+            int blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
+            int whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
+            NSLog(@"Current black score: %d", blackScore);
+            NSLog(@"Current white score: %d", whiteScore);
+            return _bestMove;
+        }
+    }
     
     [self makeMove:_bestMove];
-    
     int blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
     int whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
-    
     NSLog(@"Current black score: %d", blackScore);
     NSLog(@"Current white score: %d", whiteScore);
-    
     return _bestMove;
 }
 
