@@ -83,7 +83,7 @@ typedef struct {
             score = [self MinimaxWithDepth:depth - 1 who:-who alpha:alpha beta:beta];
             [self switchPlayer];
             [self undoMove:move];
-            
+
             if (score > alpha) {
                 alpha = score;
                 bestMove = move;
@@ -98,15 +98,14 @@ typedef struct {
         return alpha;
     } else {
         for (GGMove *move in moves) {
-            [self switchPlayer];
             [self makeMove:move];
+            [self switchPlayer];
             score = [self MinimaxWithDepth:depth - 1 who:-who alpha:alpha beta:beta];
             [self switchPlayer];
             [self undoMove:move];
             
             if (score < beta) {
                 beta = score;
-                bestMove = move;
                 if (alpha >= beta) {
                     break;
                 }
@@ -120,8 +119,8 @@ typedef struct {
 - (NSMutableArray *)getPossibleMoves {
     NSMutableArray *moves = [NSMutableArray array];
     GGPointHelper points[GRID_SIZE * GRID_SIZE];
-    
     int index = 0;
+    
     for (int i = 0; i < GRID_SIZE; i++) {
         for (int j = 0; j < GRID_SIZE; j++) {
             GGPoint point;

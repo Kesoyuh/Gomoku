@@ -36,6 +36,8 @@ typedef NS_ENUM(NSInteger, GGTupleType)
 - (GGMove *)getBestMove {
     int maxScore = 0;
     GGPoint bestPoint;
+    int index = 0;
+    GGPoint bestPoints[GRID_SIZE * GRID_SIZE];
     
     NSLog(@"Start to print scores:");
     for (int i = 0; i < GRID_SIZE; i++) {
@@ -47,15 +49,23 @@ typedef NS_ENUM(NSInteger, GGTupleType)
                 
                 int score = [self getScoreWithPoint:point];
                 
-                if (score >= maxScore) {
+                if (score == maxScore) {
+                    NSLog(@"(%d, %d) : %d", i, j, score);
+                    bestPoints[index] = point;
+                    index++;
+                } else if (score > maxScore) {
                     NSLog(@"(%d, %d) : %d", i, j, score);
                     maxScore = score;
-                    bestPoint = point;
+                    index = 0;
+                    bestPoints[index] = point;
+                    index++;
                 }
             }
         }
     }
-    NSLog(@"Chosen point: (%d, %d) : %d", bestPoint.i, bestPoint.j, maxScore);
+    
+    bestPoint = bestPoints[arc4random_uniform(index)];
+    NSLog(@"Chosen point from %d points: (%d, %d) : %d", index, bestPoint.i, bestPoint.j, maxScore);
     
     GGMove *bestMove = [[GGMove alloc] initWithPlayer:_playerType point:bestPoint];
     [self makeMove:bestMove];
