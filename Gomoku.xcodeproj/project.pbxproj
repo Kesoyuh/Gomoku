@@ -11,6 +11,7 @@
 		0C06D0151F14BD3D0037B86D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C06D0141F14BD3D0037B86D /* Security.framework */; };
 		0C06D0171F14BD430037B86D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C06D0161F14BD430037B86D /* Foundation.framework */; };
 		0C06D01A1F14C8D70037B86D /* GGHostListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C06D0191F14C8D70037B86D /* GGHostListController.m */; };
+		0C06D01D1F1633700037B86D /* GGPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C06D01C1F1633700037B86D /* GGPacket.m */; };
 		0C31C1D71ED914F400B35F43 /* GGBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C31C1D61ED914F400B35F43 /* GGBoardView.m */; };
 		0C31C1DD1ED9524600B35F43 /* GGBoardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C31C1DC1ED9524600B35F43 /* GGBoardController.m */; };
 		0CC96DAC1ED1583C00484771 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC96DAB1ED1583C00484771 /* main.m */; };
@@ -34,6 +35,8 @@
 		0C06D0161F14BD430037B86D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0C06D0181F14C8D70037B86D /* GGHostListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGHostListController.h; path = Controller/GGHostListController.h; sourceTree = "<group>"; };
 		0C06D0191F14C8D70037B86D /* GGHostListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GGHostListController.m; path = Controller/GGHostListController.m; sourceTree = "<group>"; };
+		0C06D01B1F1633700037B86D /* GGPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGPacket.h; sourceTree = "<group>"; };
+		0C06D01C1F1633700037B86D /* GGPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGPacket.m; sourceTree = "<group>"; };
 		0C31C1D51ED914F400B35F43 /* GGBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGBoardView.h; path = View/GGBoardView.h; sourceTree = "<group>"; };
 		0C31C1D61ED914F400B35F43 /* GGBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GGBoardView.m; path = View/GGBoardView.m; sourceTree = "<group>"; };
 		0C31C1DB1ED9524600B35F43 /* GGBoardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGBoardController.h; path = Controller/GGBoardController.h; sourceTree = "<group>"; };
@@ -155,6 +158,8 @@
 				7BE071901F10D01100A6BB03 /* GGGreedyAI.m */,
 				7BE071921F10DC8B00A6BB03 /* GGMinimaxAI.h */,
 				7BE071931F10DC8B00A6BB03 /* GGMinimaxAI.m */,
+				0C06D01B1F1633700037B86D /* GGPacket.h */,
+				0C06D01C1F1633700037B86D /* GGPacket.m */,
 			);
 			name = Model;
 			path = model;
@@ -214,7 +219,7 @@
 				TargetAttributes = {
 					0CC96DA61ED1583C00484771 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = H57Q994RQL;
+						DevelopmentTeam = 7STNWYS4YZ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -306,6 +311,7 @@
 				7BBBFC411ED9193200B6A9FD /* GGMove.m in Sources */,
 				0C06D01A1F14C8D70037B86D /* GGHostListController.m in Sources */,
 				7BE071911F10D01100A6BB03 /* GGGreedyAI.m in Sources */,
+				0C06D01D1F1633700037B86D /* GGPacket.m in Sources */,
 				0CC96DAF1ED1583C00484771 /* AppDelegate.m in Sources */,
 				0C31C1D71ED914F400B35F43 /* GGBoardView.m in Sources */,
 				0CC96DAC1ED1583C00484771 /* main.m in Sources */,
@@ -434,7 +440,7 @@
 			baseConfigurationReference = 09EBFF66163AA27A22DA0075 /* Pods-Gomoku.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = H57Q994RQL;
+				DEVELOPMENT_TEAM = 7STNWYS4YZ;
 				INFOPLIST_FILE = Gomoku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.unimelb.Gomoku;
@@ -447,7 +453,7 @@
 			baseConfigurationReference = 0C7044F4539E688F07C35966 /* Pods-Gomoku.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = H57Q994RQL;
+				DEVELOPMENT_TEAM = 7STNWYS4YZ;
 				INFOPLIST_FILE = Gomoku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.unimelb.Gomoku;

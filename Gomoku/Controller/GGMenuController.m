@@ -43,7 +43,7 @@
     [self performSegueWithIdentifier:@"startGame" sender:sender];
 }
 - (IBAction)btnLANGame_TouchUp:(UIButton *)sender {
-    [self performSegueWithIdentifier:@"findGame" sender:sender];
+    [self performSegueWithIdentifier:@"startGame" sender:sender];
 }
 
 - (IBAction)btnSetting_TouchUp:(UIButton *)sender {
@@ -54,11 +54,13 @@
     UIButton *button = sender;
     NSLog(@"%@", button.titleLabel.text);
     GGBoardController *boardController = segue.destinationViewController;
-    if ([button.titleLabel.text  isEqual: @"单人游戏"]) {
+    if ([button.titleLabel.text isEqual: @"单人游戏"]) {
         boardController.gameMode = GGModeSingle;
         
-    } else if ([button.titleLabel.text  isEqual: @"双人游戏"]) {
+    } else if ([button.titleLabel.text isEqual: @"双人游戏"]) {
         boardController.gameMode = GGModeDouble;
+    } else if ([button.titleLabel.text isEqual: @"联机游戏"]) {
+        boardController.gameMode = GGModeLAN;
     }
 }
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "GGHostListController.h"
+#import "GGPacket.h"
 @import CocoaAsyncSocket; 
 
 @interface GGHostListController () <NSNetServiceDelegate, NSNetServiceBrowserDelegate, GCDAsyncSocketDelegate>
@@ -115,6 +116,42 @@
     return isConnected;
 }
 
+- (void)sendPacket:(GGPacket *)packet withSocket:(GCDAsyncSocket *)socket {
+    // Encode Packet Data
+    NSMutableData *packetData = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:packetData];
+    [archiver encodeObject:packet forKey:@"packet"];
+    [archiver finishEncoding];
+    
+    // Initialize Buffer
+    NSMutableData *buffer = [[NSMutableData alloc] init];
+    
+    // Fill Buffer
+    uint64_t headerLength = packetData.length;
+    [buffer appendBytes:&headerLength length:sizeof(uint64_t)];
+    [buffer appendBytes:packetData.bytes length:packetData.length];
+    
+    // Write Buffer
+    [socket writeData:buffer withTimeout:-1.0 tag:0];
+}
+
+- (uint64_t)parseHeader:(NSData *)data {
+    uint64_t headerLength = 0;
+    memcpy(&headerLength, [data bytes], sizeof(uint64_t));
+    
+    return headerLength;
+}
+
+- (void)parseBody:(NSData *)data {
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+    GGPacket *packet = [unarchiver decodeObjectForKey:@"packet"];
+    [unarchiver finishDecoding];
+    
+    NSLog(@"Packet Data > %@", packet.data);
+    NSLog(@"Packet Type > %li", (long)packet.type);
+    NSLog(@"Packet Action > %li", (long)packet.piece);
+}
+
 #pragma mark - IBAction
 
 - (IBAction)btnBack_TouchUp:(UIBarButtonItem *)sender {
@@ -203,11 +240,44 @@
 - (void)socket:(GCDAsyncSocket *)socket didAcceptNewSocket:(GCDAsyncSocket *)newSocket {
     NSLog(@"Accepted New Socket from %@:%hu", [newSocket connectedHost], [newSocket connectedPort]);
     
-    // Socket
-    self.serverSocket = newSocket;
+    [self.delegate controller:self didHostGameOnSocket:newSocket];
+    [self stopBroadcast];
+    [self.alertController dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
-    // Read Data from Socket
-    [newSocket readDataToLength:sizeof(uint64_t) withTimeout:-1.0 tag:0];
+//    // Socket
+//    self.serverSocket = newSocket;
+//    
+//    // Read Data from Socket
+//    [newSocket readDataToLength:sizeof(uint64_t) withTimeout:-1.0 tag:0];
+//    
+//    // Create Packet
+//    NSString *message = @"This is a proof of concept.";
+//    GGPacket *packet = [[GGPacket alloc] initWithData:message type:GGPacketTypeUnknown action:GGPacketActionUnknown];
+//    
+//    // Send Packet
+//    [self sendPacket:packet withSocket:self.serverSocket];
+}
+
+- (void)socket:(GCDAsyncSocket *)socket didConnectToHost:(NSString *)host port:(UInt16)port {
+    NSLog(@"Socket Did Connect to Host: %@ Port: %hu", host, port);
+    
+    [self.delegate controller:self didJoinGameOnSocket:socket];
+    [self stopBrowsing];
+    [self dismissViewControllerAnimated:YES completion:nil];
+//    // Start Reading
+//    [socket readDataToLength:sizeof(uint64_t) withTimeout:-1.0 tag:0];
+}
+
+- (void)socket:(GCDAsyncSocket *)socket didReadData:(NSData *)data withTag:(long)tag {
+    if (tag == 0) {
+        uint64_t bodyLength = [self parseHeader:data];
+        [socket readDataToLength:bodyLength withTimeout:-1.0 tag:1];
+        
+    } else if (tag == 1) {
+        [self parseBody:data];
+        [socket readDataToLength:sizeof(uint64_t) withTimeout:30.0 tag:0];
+    }
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)socket withError:(NSError *)error {
@@ -230,13 +300,6 @@
         [socket setDelegate:nil];
         self.clientSocket = nil;
     }
-}
-
-- (void)socket:(GCDAsyncSocket *)socket didConnectToHost:(NSString *)host port:(UInt16)port {
-    NSLog(@"Socket Did Connect to Host: %@ Port: %hu", host, port);
-    
-    // Start Reading
-    [socket readDataToLength:sizeof(uint64_t) withTimeout:-1.0 tag:0];
 }
 
 
