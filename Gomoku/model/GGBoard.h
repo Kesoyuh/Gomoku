@@ -23,6 +23,6 @@ typedef NS_ENUM(NSInteger, GGPieceType)
 - (void)undoMove:(GGMove *)move;
 - (BOOL)checkWinAtPoint:(GGPoint)point;
 
-- (GGMove *)findBestMove;
+- (GGMove *)getBestMove;
 
 @end

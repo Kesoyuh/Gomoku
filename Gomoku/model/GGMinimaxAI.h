@@ -1,6 +1,6 @@
-#import "GGBoard.h"
+#import "GGGreedyAI.h"
 
-@interface GGMinimaxAI : GGBoard
+@interface GGMinimaxAI : GGGreedyAI
 
 - (instancetype)initWithPlayer:(GGPlayerType)playerType;
 

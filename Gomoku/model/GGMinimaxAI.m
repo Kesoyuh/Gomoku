@@ -13,6 +13,11 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     GGTupleTypeFive = 100000
 };
 
+typedef struct {
+    GGPoint point;
+    int score;
+} GGPointHelper;
+
 @interface GGMinimaxAI()
 {
     GGPlayerType _playerType;
@@ -34,57 +39,35 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     return self;
 }
 
-- (GGMove *)findBestMove {
-    [self MinimaxWithDepth:4 who:1 alpha:-[self maxEvaluateValue] beta:[self maxEvaluateValue]];
+- (GGMove *)getBestMove {
+    [self MinimaxWithDepth:8 who:1 alpha:-[self maxEvaluateValue] beta:[self maxEvaluateValue]];
+    
+    [self makeMove:_bestMove];
+    
+    int blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
+    int whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
+    
+    NSLog(@"Current black score: %d", blackScore);
+    NSLog(@"Current white score: %d", whiteScore);
+    
     return _bestMove;
 }
 
 - (int)MinimaxWithDepth:(int)depth who:(int)who alpha:(int)alpha beta:(int)beta {
-    if (depth == 0) {
+    if (depth == 0 || [self finished]) {
         return who * [self evaluate];
     }
     
     int score;
-    GGMove *bestMove = nil;
-    GGMove *moves[GRID_SIZE * GRID_SIZE];
-    GGMove *moves1[GRID_SIZE * GRID_SIZE];
-    
-    for (int i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
-        moves[i] = nil;
-        moves1[i] = nil;
-    }
-    
-    int index = 0;
-    int index1 = 0;
-    for (int i = 0; i < GRID_SIZE; i++) {
-        for (int j = 0; j < GRID_SIZE; j++) {
-            GGPoint point;
-            point.i = i;
-            point.j = j;
-            
-            if ([self isNeighbour:point]) {
-                moves[index] = [[GGMove alloc] initWithPlayer:_playerType point:point];
-                index++;
-            } else if ([self isNextNeighbour:point]) {
-                moves1[index] = [[GGMove alloc] initWithPlayer:_playerType point:point];
-                index1++;
-            }
-        }
-    }
-    
-    for (int i = index; i < index + index1; i++) {
-        moves[i] = moves1[i - index];
-    }
-    
-    index += index1;
+    GGMove *bestMove;
+    NSMutableArray *moves = [self getPossibleMoves];
     
     // moves are empty???
     
     if (who > 0) {
-        for (int i = 0; i < index; i++) {
-            GGMove *move = moves[i];
-            [self switchPlayer];
+        for (GGMove *move in moves) {
             [self makeMove:move];
+            [self switchPlayer];
             score = [self MinimaxWithDepth:depth - 1 who:-who alpha:alpha beta:beta];
             [self switchPlayer];
             [self undoMove:move];
@@ -98,14 +81,11 @@ typedef NS_ENUM(NSInteger, GGTupleType)
             }
         }
         
-        if (depth == 4) {
-            _bestMove = bestMove;
-        }
+        _bestMove = bestMove;
         
         return alpha;
     } else {
-        for (int i = 0; i < index; i++) {
-            GGMove *move = moves[i];
+        for (GGMove *move in moves) {
             [self switchPlayer];
             [self makeMove:move];
             score = [self MinimaxWithDepth:depth - 1 who:-who alpha:alpha beta:beta];
@@ -125,32 +105,54 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     }
 }
 
+- (NSMutableArray *)getPossibleMoves {
+    NSMutableArray *moves = [NSMutableArray array];
+    GGPointHelper points[GRID_SIZE * GRID_SIZE];
+    
+    int index = 0;
+    for (int i = 0; i < GRID_SIZE; i++) {
+        for (int j = 0; j < GRID_SIZE; j++) {
+            GGPoint point;
+            point.i = i;
+            point.j = j;
+            
+            if ([self isNeighbour:point]) {
+                GGPointHelper pointHelper;
+                pointHelper.point = point;
+                pointHelper.score = [self getScoreWithPoint:point];
+                points[index] = pointHelper;
+                index++;
+            }
+        }
+    }
+    
+    // sort the points
+    for (int i = 1; i < index; i++) {
+        int j = i - 1;
+        GGPointHelper temp = points[i];
+        while (j >= 0 && temp.score > points[j].score) {
+            points[j + 1] = points[j];
+            j--;
+        }
+        points[j + 1] = temp;
+    }
+    
+    // only return the first 10 points
+    for (int i = 0; i < 10; i++) {
+        GGMove *move = [[GGMove alloc] initWithPlayer:_playerType point:points[i].point];
+        [moves addObject:move];
+    }
+    
+    return moves;
+}
+
 - (BOOL)isNeighbour:(GGPoint)point {
     int i = point.i;
     int j = point.j;
     
     if (_grid[i][j] == GGPieceTypeBlank) {
-        for (int m = i - 1; m <= i + 1; m++) {
-            for (int n = j - 1; n <= j + 1; n++) {
-                if (m >= 0 && m < GRID_SIZE && n >= 0 && n < GRID_SIZE) {
-                    if (_grid[m][n] != GGPieceTypeBlank) {
-                        return YES;
-                    }
-                }
-            }
-        }
-    }
-    
-    return NO;
-}
-
-- (BOOL)isNextNeighbour:(GGPoint)point {
-    int i = point.i;
-    int j = point.j;
-    
-    if (_grid[i][j] == GGPieceTypeBlank) {
-        for (int m = i - 2; m <= i + 2; m += 2) {
-            for (int n = j - 2; n <= j + 2; n += 2) {
+        for (int m = i - 2; m <= i + 2; m++) {
+            for (int n = j - 2; n <= j + 2; n++) {
                 if (m >= 0 && m < GRID_SIZE && n >= 0 && n < GRID_SIZE) {
                     if (_grid[m][n] != GGPieceTypeBlank) {
                         return YES;
@@ -164,17 +166,11 @@ typedef NS_ENUM(NSInteger, GGTupleType)
 }
 
 - (BOOL)finished {
-    for (int i = 0; i < GRID_SIZE; i++) {
-        for (int j = 0; j < GRID_SIZE; j++) {
-            if (_grid[i][j] != GGPieceTypeBlank) {
-                GGPoint point;
-                point.i = i;
-                point.j = j;
-                if ([self checkWinAtPoint:point]) {
-                    return YES;
-                }
-            }
-        }
+    int blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
+    int whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
+    
+    if (blackScore >= GGTupleTypeFive || whiteScore >= GGTupleTypeFive) {
+        return YES;
     }
     
     return NO;
@@ -408,379 +404,5 @@ typedef NS_ENUM(NSInteger, GGTupleType)
         _playerType = GGPlayerTypeBlack;
     }
 }
-
-/*
-- (int)evaluateWithPieceType:(GGPieceType)pieceType {
-    int score = 0;
-    
-    // Horizontal
-    for (int i = 0; i < GRID_SIZE; i++) {
-        int index = -1;
-        while (index <= GRID_SIZE - 5) {
-            GGPoint pointTuple[6];
-            
-            for (int j = 0; j < 6; j++) {
-                GGPoint point;
-                point.i = i;
-                point.j = index + j;
-                pointTuple[j] = point;
-            }
-            
-            int singleScore = [self evaluateWithTuple:pointTuple pieceType:pieceType];
-            score += singleScore;
-            
-            if (singleScore >= 720) {
-                for (int j = 1; j < 6; j++) {
-                    if ([self pieceAtPoint:pointTuple[j]] == GGPieceTypeUsed) {
-                        index = index + j;
-                        break;
-                    }
-                    if (j == 5) {
-                        index = index + j;
-                    }
-                }
-            } else if (singleScore >= 20) {
-                for (int j = 1; j < 6; j++) {
-                    if ([self pieceAtPoint:pointTuple[j]] == pieceType) {
-                        index += j + 1;
-                        break;
-                    }
-                }
-            } else {
-                index++;
-            }
-        }
-    }
-    
-    // Vertical
-    [self recoverUsedPiece];    
-    for (int j = 0; j < GRID_SIZE; j++) {
-        int index = -1;
-        while (index <= GRID_SIZE - 5) {
-            GGPoint pointTuple[6];
-            
-            for (int i = 0; i < 6; i++) {
-                GGPoint point;
-                point.i = index + i;
-                point.j = j;
-                pointTuple[i] = point;
-            }
-            
-            int singleScore = [self evaluateWithTuple:pointTuple pieceType:pieceType];
-            score += singleScore;
-            
-            if (singleScore >= 720) {
-                for (int i = 1; i < 6; i++) {
-                    if ([self pieceAtPoint:pointTuple[i]] == GGPieceTypeUsed) {
-                        index = index + i;
-                        break;
-                    }
-                    if (i == 5) {
-                        index = index + i;
-                    }
-                }
-            } else if (singleScore >= 20) {
-                for (int i = 1; i < 6; i++) {
-                    if ([self pieceAtPoint:pointTuple[i]] == pieceType) {
-                        index += i + 1;
-                        break;
-                    }
-                }
-            } else {
-                index++;
-            }
-        }
-    }
-    
-    // Oblique up
-    [self recoverUsedPiece];
-    for (int x = 0; x < 21; x++) {
-        int pieceNumber = GRID_SIZE - abs(x - 10);
-        int index = -1;
-        while (index <= pieceNumber - 5) {
-            GGPoint pointTuple[6];
-            
-            for (int y = 0; y < 6; y++) {
-                GGPoint point;
-                if (x <= 10) {
-                    point.i = index + y;
-                    point.j = GRID_SIZE - pieceNumber + index + y;
-                } else {
-                    point.i = GRID_SIZE - pieceNumber + index + y;
-                    point.j = index + y;
-                }
-                pointTuple[y] = point;
-            }
-            
-            int singleScore = [self evaluateWithTuple:pointTuple pieceType:pieceType];
-            score += singleScore;
-            
-            if (singleScore >= 720) {
-                for (int y = 1; y < 6; y++) {
-                    if ([self pieceAtPoint:pointTuple[y]] == GGPieceTypeUsed) {
-                        index = index + y;
-                        break;
-                    }
-                    if (y == 5) {
-                        index = index + y;
-                    }
-                }
-            } else if (singleScore >= 20) {
-                for (int y = 1; y < 6; y++) {
-                    if ([self pieceAtPoint:pointTuple[y]] == pieceType) {
-                        index += y + 1;
-                        break;
-                    }
-                }
-            } else {
-                index++;
-            }
-            
-        }
-    }
-    
-    // Oblique down
-    [self recoverUsedPiece];
-    for (int x = 0; x < 21; x++) {
-        int pieceNumber = GRID_SIZE - abs(x - 10);
-        int index = -1;
-        while (index <= pieceNumber - 5) {
-            GGPoint pointTuple[6];
-            
-            for (int y = 0; y < 6; y++) {
-                GGPoint point;
-                if (x <= 10) {
-                    point.i = index + y;
-                    point.j = pieceNumber - 1 - index - y;
-                } else {
-                    point.i = GRID_SIZE - pieceNumber + index + y;
-                    point.j = GRID_SIZE - 1 - index - y;
-                }
-                pointTuple[y] = point;
-            }
-            
-            int singleScore = [self evaluateWithTuple:pointTuple pieceType:pieceType];
-            score += singleScore;
-            
-            if (singleScore >= 720) {
-                for (int y = 1; y < 6; y++) {
-                    if ([self pieceAtPoint:pointTuple[y]] == GGPieceTypeUsed) {
-                        index = index + y;
-                        break;
-                    }
-                    if (y == 5) {
-                        index = index + y;
-                    }
-                }
-            } else if (singleScore >= 20) {
-                for (int y = 1; y < 6; y++) {
-                    if ([self pieceAtPoint:pointTuple[y]] == pieceType) {
-                        index += y + 1;
-                        break;
-                    }
-                }
-            } else {
-                index++;
-            }
-            
-        }
-    }
-    
-    return score;
-}
-
-- (GGPieceType)pieceAtPoint:(GGPoint)point {
-    if (point.i < 0 || point.i >= GRID_SIZE || point.j < 0 || point.j >= GRID_SIZE) {
-        return GGPieceTypeBlock;
-    }
-    return _grid[point.i][point.j];
-}
-
-- (void)recoverUsedPiece {
-    for (int i = 0; i < GRID_SIZE; i++) {
-        for (int j = 0; j < GRID_SIZE; j++) {
-            if (_grid[i][j] == GGPieceTypeUsed) {
-                _grid[i][j] = GGPieceTypeBlank;
-            }
-        }
-    }
-}
-
-- (int)evaluateWithTuple:(GGPoint *)pointTuple pieceType:(GGPieceType)pieceType {
-    GGPieceType pieceTuple[6];
-    
-    for (int i = 0; i < 6; i++) {
-        pieceTuple[i] = [self pieceAtPoint:pointTuple[i]];
-    }
-    
-    // OOOOO_
-    if (pieceTuple[0] == pieceType &&
-        pieceTuple[1] == pieceType &&
-        pieceTuple[2] == pieceType &&
-        pieceTuple[3] == pieceType &&
-        pieceTuple[4] == pieceType) {
-        return 50000;
-    }
-    
-    // +OOOO+
-    if (pieceTuple[0] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[1] == pieceType &&
-        pieceTuple[2] == pieceType &&
-        pieceTuple[3] == pieceType &&
-        pieceTuple[4] == pieceType &&
-        pieceTuple[5] == GGPieceTypeBlank) {
-        _grid[pointTuple[5].i][pointTuple[5].j] = GGPieceTypeUsed;
-        return 4320;
-    }
-    
-    // +OOO++
-    if (pieceTuple[0] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[1] == pieceType &&
-        pieceTuple[2] == pieceType &&
-        pieceTuple[3] == pieceType &&
-        pieceTuple[4] == GGPieceTypeBlank &&
-        pieceTuple[5] == (GGPieceTypeBlank | GGPieceTypeUsed)) {
-        _grid[pointTuple[4].i][pointTuple[4].j] = GGPieceTypeUsed;
-        return 720;
-    }
-    
-    // ++OOO+
-    if (pieceTuple[0] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[1] == GGPieceTypeBlank &&
-        pieceTuple[2] == pieceType &&
-        pieceTuple[3] == pieceType &&
-        pieceTuple[4] == pieceType &&
-        pieceTuple[5] == (GGPieceTypeBlank | GGPieceTypeUsed)) {
-        _grid[pointTuple[1].i][pointTuple[1].j] = GGPieceTypeUsed;
-        return 720;
-    }
-    
-    // +OO+O+
-    if (pieceTuple[0] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[1] == pieceType &&
-        pieceTuple[2] == pieceType &&
-        pieceTuple[3] == GGPieceTypeBlank &&
-        pieceTuple[4] == pieceType &&
-        pieceTuple[5] == (GGPieceTypeBlank | GGPieceTypeUsed)) {
-        _grid[pointTuple[3].i][pointTuple[3].j] = GGPieceTypeUsed;
-        return 720;
-    }
-    
-    // +O+OO+
-    if (pieceTuple[0] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[1] == pieceType &&
-        pieceTuple[2] == GGPieceTypeBlank &&
-        pieceTuple[3] == pieceType &&
-        pieceTuple[4] == pieceType &&
-        pieceTuple[5] == (GGPieceTypeBlank | GGPieceTypeUsed)) {
-        _grid[pointTuple[2].i][pointTuple[2].j] = GGPieceTypeUsed;
-        return 720;
-    }
-    
-    // XOOOO+
-    if (pieceTuple[0] != (GGPieceTypeBlank | GGPieceTypeUsed | pieceType) &&
-        pieceTuple[1] == pieceType &&
-        pieceTuple[2] == pieceType &&
-        pieceTuple[3] == pieceType &&
-        pieceTuple[4] == pieceType &&
-        pieceTuple[5] == GGPieceTypeBlank) {
-        _grid[pointTuple[5].i][pointTuple[5].j] = GGPieceTypeUsed;
-        return 720;
-    }
-    
-    // +OOOOX
-    if (pieceTuple[0] == GGPieceTypeBlank &&
-        pieceTuple[1] == pieceType &&
-        pieceTuple[2] == pieceType &&
-        pieceTuple[3] == pieceType &&
-        pieceTuple[4] == pieceType &&
-        pieceTuple[5] == (GGPieceTypeBlank | GGPieceTypeUsed | pieceType)) {
-        _grid[pointTuple[0].i][pointTuple[0].j] = GGPieceTypeUsed;
-        return 720;
-    }
-    
-    // OO+OO_
-    if (pieceTuple[0] == pieceType &&
-        pieceTuple[1] == pieceType &&
-        pieceTuple[2] == GGPieceTypeBlank &&
-        pieceTuple[3] == pieceType &&
-        pieceTuple[4] == pieceType) {
-        _grid[pointTuple[2].i][pointTuple[2].j] = GGPieceTypeUsed;
-        return 720;
-    }
-    
-    // O+OOO_
-    if (pieceTuple[0] == pieceType &&
-        pieceTuple[1] == GGPieceTypeBlank &&
-        pieceTuple[2] == pieceType &&
-        pieceTuple[3] == pieceType &&
-        pieceTuple[4] == pieceType) {
-        _grid[pointTuple[1].i][pointTuple[1].j] = GGPieceTypeUsed;
-        return 720;
-    }
-    
-    // OOO+O_
-    if (pieceTuple[0] == pieceType &&
-        pieceTuple[1] == pieceType &&
-        pieceTuple[2] == pieceType &&
-        pieceTuple[3] == GGPieceTypeBlank &&
-        pieceTuple[4] == pieceType) {
-        _grid[pointTuple[3].i][pointTuple[3].j] = GGPieceTypeUsed;
-        return 720;
-    }
-    
-    // ++OO++
-    if (pieceTuple[0] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[1] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[2] == pieceType &&
-        pieceTuple[3] == pieceType &&
-        pieceTuple[4] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[5] == (GGPieceTypeBlank | GGPieceTypeUsed)) {
-        return 120;
-    }
-    
-    // ++O+O+
-    if (pieceTuple[0] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[1] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[2] == pieceType &&
-        pieceTuple[3] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[4] == pieceType &&
-        pieceTuple[5] == (GGPieceTypeBlank | GGPieceTypeUsed)) {
-        return 120;
-    }
-    
-    // +O+O++
-    if (pieceTuple[0] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[1] == pieceType &&
-        pieceTuple[2] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[3] == pieceType &&
-        pieceTuple[4] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[5] == (GGPieceTypeBlank | GGPieceTypeUsed)) {
-        return 120;
-    }
-    
-    // +++O++
-    if (pieceTuple[0] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[1] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[2] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[3] == pieceType &&
-        pieceTuple[4] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[5] == (GGPieceTypeBlank | GGPieceTypeUsed)) {
-        return 20;
-    }
-    
-    // ++O+++
-    if (pieceTuple[0] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[1] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[2] == pieceType &&
-        pieceTuple[3] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[4] == (GGPieceTypeBlank | GGPieceTypeUsed) &&
-        pieceTuple[5] == (GGPieceTypeBlank | GGPieceTypeUsed)) {
-        return 20;
-    }
-    
-    return 0;
-}
-*/
 
 @end

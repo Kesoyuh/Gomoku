@@ -33,49 +33,34 @@ typedef NS_ENUM(NSInteger, GGTupleType)
     return self;
 }
 
-- (GGMove *)findBestMove {
-    GGPoint pointArray[GRID_SIZE * GRID_SIZE];
+- (GGMove *)getBestMove {
+    int maxScore = 0;
+    GGPoint bestPoint;
     
-    for (int i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
-        GGPoint point;
-        point.i = -1;
-        point.j = -1;
-        pointArray[i] = point;
-    }
-    
-    int index = 0;
+    NSLog(@"Start to print scores:");
     for (int i = 0; i < GRID_SIZE; i++) {
         for (int j = 0; j < GRID_SIZE; j++) {
             if (_grid[i][j] == GGPieceTypeBlank) {
                 GGPoint point;
                 point.i = i;
                 point.j = j;
-                pointArray[index] = point;
-                index++;
+                
+                int score = [self getScoreWithPoint:point];
+                
+                if (score >= maxScore) {
+                    NSLog(@"(%d, %d) : %d", i, j, score);
+                    maxScore = score;
+                    bestPoint = point;
+                }
             }
         }
     }
+    NSLog(@"Chosen point: (%d, %d) : %d", bestPoint.i, bestPoint.j, maxScore);
     
-    if (index == 0) {
-        return nil;
-    }
+    GGMove *bestMove = [[GGMove alloc] initWithPlayer:_playerType point:bestPoint];
+    [self makeMove:bestMove];
     
-    int maxScore = 0;
-    int maxScoreIndex = 0;
-    
-    NSLog(@"Start to print scores:");
-    for (int i = 0; i < index; i++) {
-        int score = [self getScoreWithPoint:pointArray[i]];
-        
-        if (score > maxScore) {
-            NSLog(@"(%d, %d) : %d", pointArray[i].i, pointArray[i].j, score);
-            maxScore = score;
-            maxScoreIndex = i;
-        }
-    }
-    NSLog(@"Chosen point: (%d, %d) : %d", pointArray[maxScoreIndex].i, pointArray[maxScoreIndex].j, maxScore);
-    
-    return [[GGMove alloc] initWithPlayer:_playerType point:pointArray[maxScoreIndex]];
+    return bestMove;
 }
 
 - (int)getScoreWithPoint:(GGPoint)point {

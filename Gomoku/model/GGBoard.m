@@ -153,7 +153,7 @@
     }
 }
 
-- (GGMove *)findBestMove {
+- (GGMove *)getBestMove {
     return nil;
 }
 

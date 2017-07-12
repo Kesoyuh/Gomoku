@@ -22,7 +22,9 @@
 }
 
 - (void)update:(GGMove *)move {
-    if (move != nil) {
+    if (move == nil) {
+        NSLog(@"!!!!Error!!!!");
+    } else {
         [_board makeMove:move];
     }
 }
@@ -36,8 +38,7 @@
         [self update:move];
         return move;
     } else {
-        GGMove *move = [_board findBestMove];
-        [self update:move];
+        GGMove *move = [_board getBestMove];
         return move;
     }
 }
