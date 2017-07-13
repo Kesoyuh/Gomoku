@@ -17,3 +17,7 @@
 **[Gomoku AI Player](https://www.cs.cf.ac.uk/PATS2/@archive_file?c=&p=file&p=526&n=final&f=1-1224795-final-report.pdf)**
 
 **[十四步实现拥有强大AI的五子棋游戏](http://www.cnblogs.com/goodness/archive/2010/05/27/1745756.html)**
+
+**[Creating a Game with Bonjour and GCDAsyncUdpSocket - Server and Client Setup](https://code.tutsplus.com/tutorials/creating-a-game-with-bonjour-client-and-server-setup--mobile-16233)**
+
+**[Creating a Game with Bonjour and GCDAsyncUdpSocket - Sending Data](https://code.tutsplus.com/tutorials/creating-a-game-with-bonjour-sending-data--mobile-16437)**
