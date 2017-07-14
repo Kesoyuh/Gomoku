@@ -14,7 +14,8 @@ extern NSString * const GGPacketKeyPiece;
 
 typedef NS_ENUM(NSInteger, GGPacketType) {
     GGPacketTypeUnknown,
-    GGPacketTypeMove
+    GGPacketTypeMove,
+    GGPacketTypeReset
 };
 
 typedef NS_ENUM(NSInteger, GGPacketPiece) {
