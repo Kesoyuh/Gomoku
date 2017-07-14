@@ -96,7 +96,6 @@
                     <connections>
                         <outlet property="backgroundImage" destination="ON4-gt-h0R" id="fHl-aS-loy"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="startGame" animates="NO" id="tTv-zl-Q2l"/>
-                        <segue destination="9z8-Qw-ryS" kind="show" identifier="findGame" id="ZtX-Fa-n5f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="szG-Rc-sRi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -106,7 +105,6 @@
         <!--Host List-->
         <scene sceneID="Dko-y9-kbd">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sKd-Mt-p5S" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="woV-5j-7yh" customClass="GGHostListController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" id="Re1-Mh-hhx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -152,6 +150,7 @@
                         <outlet property="tableView" destination="Re1-Mh-hhx" id="fMy-Ju-HmG"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sKd-Mt-p5S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="324" y="892.80359820089961"/>
         </scene>
@@ -183,6 +182,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="重开">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="disabled" title="重开">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="btnReset_TouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Apm-gF-Sph"/>
@@ -258,8 +260,10 @@
                     </view>
                     <connections>
                         <outlet property="boardView" destination="5W6-ck-WiD" id="xY7-V4-BdM"/>
+                        <outlet property="btnReset" destination="3Sr-lK-4Yy" id="GeT-9J-M6T"/>
                         <outlet property="timerBlackLabel" destination="gJa-S5-K6L" id="C3l-FI-pwE"/>
                         <outlet property="timerWhiteLabel" destination="Vnl-P2-PRz" id="7Ul-Hk-m84"/>
+                        <segue destination="9z8-Qw-ryS" kind="show" identifier="findGame" id="ClO-o0-3BM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -271,7 +275,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9z8-Qw-ryS" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="CDt-yd-sua">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CDt-yd-sua">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

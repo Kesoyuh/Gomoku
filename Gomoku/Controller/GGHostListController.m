@@ -7,6 +7,7 @@
 //
 
 #import "GGHostListController.h"
+#import "GGPacket.h"
 @import CocoaAsyncSocket; 
 
 @interface GGHostListController () <NSNetServiceDelegate, NSNetServiceBrowserDelegate, GCDAsyncSocketDelegate>
@@ -115,6 +116,7 @@
     return isConnected;
 }
 
+
 #pragma mark - IBAction
 
 - (IBAction)btnBack_TouchUp:(UIBarButtonItem *)sender {
@@ -203,12 +205,24 @@
 - (void)socket:(GCDAsyncSocket *)socket didAcceptNewSocket:(GCDAsyncSocket *)newSocket {
     NSLog(@"Accepted New Socket from %@:%hu", [newSocket connectedHost], [newSocket connectedPort]);
     
-    // Socket
-    self.serverSocket = newSocket;
+    [self stopBroadcast];
+    [self.delegate controller:self didHostGameOnSocket:newSocket];
     
-    // Read Data from Socket
-    [newSocket readDataToLength:sizeof(uint64_t) withTimeout:-1.0 tag:0];
+    [self.alertController dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
+
 }
+
+- (void)socket:(GCDAsyncSocket *)socket didConnectToHost:(NSString *)host port:(UInt16)port {
+    NSLog(@"Socket Did Connect to Host: %@ Port: %hu", host, port);
+    
+    [self stopBrowsing];
+    [self.delegate controller:self didJoinGameOnSocket:socket];
+   
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
+
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)socket withError:(NSError *)error {
 
@@ -230,13 +244,6 @@
         [socket setDelegate:nil];
         self.clientSocket = nil;
     }
-}
-
-- (void)socket:(GCDAsyncSocket *)socket didConnectToHost:(NSString *)host port:(UInt16)port {
-    NSLog(@"Socket Did Connect to Host: %@ Port: %hu", host, port);
-    
-    // Start Reading
-    [socket readDataToLength:sizeof(uint64_t) withTimeout:-1.0 tag:0];
 }
 
 

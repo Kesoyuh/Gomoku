@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@class GCDAsyncSocket;
+
+@protocol GGHostListControllerDelegate;
+
 @interface GGHostListController : UITableViewController
+
+@property (weak, nonatomic) id<GGHostListControllerDelegate> delegate;
+
+@end
+
+@protocol GGHostListControllerDelegate
+
+- (void)controller:(GGHostListController *)controller didJoinGameOnSocket:(GCDAsyncSocket *)socket;
+- (void)controller:(GGHostListController *)controller didHostGameOnSocket:(GCDAsyncSocket *)socket;
 
 @end
