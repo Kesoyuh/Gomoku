@@ -22,5 +22,6 @@
 
 - (void)controller:(GGHostListController *)controller didJoinGameOnSocket:(GCDAsyncSocket *)socket;
 - (void)controller:(GGHostListController *)controller didHostGameOnSocket:(GCDAsyncSocket *)socket;
+- (void)shouldDismiss;
 
 @end

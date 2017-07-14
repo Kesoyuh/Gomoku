@@ -22,6 +22,7 @@
     NSTimer *timer;
     BOOL isHost;
     BOOL oppositeReset;
+    BOOL shouldDismiss;
     
 }
 
@@ -54,6 +55,8 @@
         [self choosePlayerType];
     } else if (_gameMode == GGModeDouble) {
         [self startTimer];
+    } else if (_gameMode == GGModeLAN && shouldDismiss == YES) {
+        [self dismissViewControllerAnimated:NO completion:nil];
     } else if (_gameMode == GGModeLAN && _socket == nil) {
         [self performSegueWithIdentifier:@"findGame" sender:nil];
     } else if (_gameMode == GGModeLAN && _socket != nil) {
@@ -319,6 +322,14 @@
         _socket.delegate = nil;
         _socket = nil;
     }
+    [self stopTimer];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"对方已经断开连接" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }];
+    [alertController addAction:action];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 
@@ -344,6 +355,10 @@
     self.socket = socket;
     [_socket setDelegate:self];
     isHost = YES;
+}
+
+- (void)shouldDismiss {
+    shouldDismiss = YES;
 }
 
 
