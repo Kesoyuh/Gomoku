@@ -9,7 +9,7 @@ typedef NS_ENUM(NSInteger, GGDifficulty) {
 
 @interface GGPlayer : NSObject
 
-- (instancetype)initWithPlayer:(GGPlayerType)player;
+- (instancetype)initWithPlayer:(GGPlayerType)playerType difficulty:(GGDifficulty)difficulty;
 - (void)update:(GGMove *)move;
 - (GGMove *)getMove;
 

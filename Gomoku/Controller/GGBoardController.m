@@ -90,11 +90,11 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请选择先后手" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *actionBlack = [UIAlertAction actionWithTitle:@"先手" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self startTimer];
-        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeWhite];
+        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeWhite difficulty:GGDifficultyHard];
     }];
     UIAlertAction *actionWhite = [UIAlertAction actionWithTitle:@"后手" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self startTimer];
-        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeBlack];
+        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeBlack difficulty:GGDifficultyHard];
         [self AIPlayWithMove:nil];
     }];
     [alert addAction:actionBlack];

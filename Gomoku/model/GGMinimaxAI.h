@@ -3,5 +3,6 @@
 @interface GGMinimaxAI : GGGreedyAI
 
 - (instancetype)initWithPlayer:(GGPlayerType)playerType;
+- (void)setDepth:(int)depth;
 
 @end

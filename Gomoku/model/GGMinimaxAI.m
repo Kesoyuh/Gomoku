@@ -1,7 +1,5 @@
 #import "GGMinimaxAI.h"
 
-static int const MAX_DEEP = 8;
-
 typedef NS_ENUM(NSInteger, GGTupleType)
 {
     GGTupleTypeLiveOne = 10,
@@ -24,6 +22,7 @@ typedef struct {
 {
     GGPlayerType _playerType;
     GGMove *_bestMove;
+    int _maxDepth;
 }
 
 @end
@@ -35,31 +34,20 @@ typedef struct {
     
     if (self) {
         _playerType = playerType;
-        _bestMove = [[GGMove alloc] init];
     }
     
     return self;
 }
 
+- (void)setDepth:(int)depth {
+    _maxDepth = depth;
+}
+
 - (GGMove *)getBestMove {
     int score;
     
-    int blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
-    int whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
-    
-    // let greedy ai make the first move
-    if (blackScore * whiteScore == 0) {
-        _bestMove = [[GGMove alloc] initWithPlayer:_playerType point:[self getBestPoint]];
-        [self makeMove:_bestMove];
-        blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
-        whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
-        NSLog(@"Current black score: %d", blackScore);
-        NSLog(@"Current white score: %d", whiteScore);
-        return _bestMove;
-    }
-    
     // iterative deepening
-    for (int deep = 2; deep <= MAX_DEEP; deep += 2) {
+    for (int deep = 2; deep <= _maxDepth; deep += 2) {
         score = [self MinimaxWithDepth:deep who:1 alpha:-[self maxEvaluateValue] beta:[self maxEvaluateValue]];
         if (score >= GGTupleTypeLiveFour) {
             [self makeMove:_bestMove];
@@ -72,8 +60,8 @@ typedef struct {
     }
     
     [self makeMove:_bestMove];
-    blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
-    whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
+    int blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
+    int whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
     NSLog(@"Current black score: %d", blackScore);
     NSLog(@"Current white score: %d", whiteScore);
     return _bestMove;

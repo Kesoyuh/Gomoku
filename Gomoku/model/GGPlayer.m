@@ -10,12 +10,25 @@
 
 @implementation GGPlayer
 
-- (instancetype)initWithPlayer:(GGPlayerType)playerType {
+- (instancetype)initWithPlayer:(GGPlayerType)playerType difficulty:(GGDifficulty)difficulty {
     self = [super init];
     
     if (self) {
         _playerType = playerType;
-        _board = [[GGMinimaxAI alloc] initWithPlayer:playerType];
+        
+        switch (difficulty) {
+            case GGDifficultyEasy:
+                _board = [[GGGreedyAI alloc] initWithPlayer:playerType];
+                break;
+            case GGDifficultyMedium:
+                _board = [[GGMinimaxAI alloc] initWithPlayer:playerType];
+                [(GGMinimaxAI *)_board setDepth:6];
+                break;
+            case GGDifficultyHard:
+                _board = [[GGMinimaxAI alloc] initWithPlayer:playerType];
+                [(GGMinimaxAI *)_board setDepth:8];
+                break;
+        }
     }
     
     return self;
