@@ -197,6 +197,9 @@
                                 <state key="normal" title="悔棋">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <state key="disabled" title="悔棋">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="btnUndo_TouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IT7-CC-6TE"/>
                                 </connections>
@@ -261,6 +264,7 @@
                     <connections>
                         <outlet property="boardView" destination="5W6-ck-WiD" id="xY7-V4-BdM"/>
                         <outlet property="btnReset" destination="3Sr-lK-4Yy" id="GeT-9J-M6T"/>
+                        <outlet property="btnUndo" destination="ygw-EM-FBB" id="doe-qn-M7m"/>
                         <outlet property="timerBlackLabel" destination="gJa-S5-K6L" id="C3l-FI-pwE"/>
                         <outlet property="timerWhiteLabel" destination="Vnl-P2-PRz" id="7Ul-Hk-m84"/>
                         <segue destination="9z8-Qw-ryS" kind="show" identifier="findGame" id="ClO-o0-3BM"/>

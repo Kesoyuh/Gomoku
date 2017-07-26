@@ -15,14 +15,18 @@ extern NSString * const GGPacketKeyAction;
 typedef NS_ENUM(NSInteger, GGPacketType) {
     GGPacketTypeUnknown,
     GGPacketTypeMove,
-    GGPacketTypeReset
+    GGPacketTypeReset,
+    GGPacketTypeUndo
 };
 
 typedef NS_ENUM(NSInteger, GGPacketAction) {
     GGPacketActionUnknown,
     GGPacketActionResetRequest,
     GGPacketActionResetAgree,
-    GGPacketActionResetReject
+    GGPacketActionResetReject,
+    GGPacketActionUndoRequest,
+    GGPacketActionUndoAgree,
+    GGPacketActionUndoReject
 };
 
 @interface GGPacket : NSObject

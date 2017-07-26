@@ -23,10 +23,12 @@
     BOOL isHost;
     BOOL oppositeReset;
     BOOL shouldDismiss;
-    
+    GGMove *whiteMove;
+    GGMove *blackMove;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *btnReset;
+@property (weak, nonatomic) IBOutlet UIButton *btnUndo;
 @property (weak, nonatomic) IBOutlet UILabel *timerWhiteLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timerBlackLabel;
 @property (strong, nonatomic) UIAlertController *resetWaitAlertController;
@@ -34,6 +36,9 @@
 @property (strong, nonatomic) UIAlertController *resetRejectAlertController;
 @property (strong, nonatomic) UIAlertController *waitAlertController;
 @property (strong, nonatomic) UIAlertController *winAlertController;
+@property (strong, nonatomic) UIAlertController *undoWaitAlertController;
+@property (strong, nonatomic) UIAlertController *undoChooseAlertController;
+@property (strong, nonatomic) UIAlertController *undoRejectAlertController;
 @property (strong, nonatomic) GCDAsyncSocket *socket;
 
 
@@ -54,6 +59,7 @@
     [super viewDidAppear:animated];
     _boardView.delegate = self;
     
+    _btnUndo.enabled = NO;
     if (_gameMode == GGModeSingle) {
         [self choosePlayerType];
     } else if (_gameMode == GGModeDouble) {
@@ -82,7 +88,7 @@
         self.waitAlertController = [UIAlertController alertControllerWithTitle:@"请等待对方先下" message:@"" preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:_waitAlertController animated:YES completion:nil];
     }
-    _btnReset.enabled = NO;
+    
 }
 
 - (void)choosePlayerType {
@@ -90,11 +96,11 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请选择先后手" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *actionBlack = [UIAlertAction actionWithTitle:@"先手" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self startTimer];
-        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeWhite difficulty:GGDifficultyHard];
+        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeWhite difficulty:GGDifficultyEasy];
     }];
     UIAlertAction *actionWhite = [UIAlertAction actionWithTitle:@"后手" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self startTimer];
-        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeBlack difficulty:GGDifficultyHard];
+        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeBlack difficulty:GGDifficultyEasy];
         [self AIPlayWithMove:nil];
     }];
     [alert addAction:actionBlack];
@@ -102,11 +108,23 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)saveMove:(GGMove *)move {
+    if (playerType == GGPlayerTypeBlack) {
+        blackMove = move;
+    } else {
+        whiteMove = move;
+    }
+}
+
 - (void)moveAtPoint:(GGPoint)point sendPacketInLAN:(BOOL)sendPacket {
     if([board canMoveAtPoint:point]) {
-        _btnReset.enabled = YES;
+        if (_gameMode == GGModeDouble) {
+            _btnUndo.enabled = YES;
+        }
+        
         GGMove *move = [[GGMove alloc] initWithPlayer:playerType point:point];
         [board makeMove:move];
+        [self saveMove:move];
         
         [_boardView insertPieceAtPoint:point playerType:playerType];
         
@@ -123,6 +141,7 @@
             if (_gameMode == GGModeSingle) {
                 [self AIPlayWithMove:move];
             } else if (_gameMode == GGModeLAN && sendPacket == YES) {
+                _btnUndo.enabled = NO;
                 NSDictionary *data = @{ @"i" : @(point.i), @"j" : @(point.j) };
                 GGPacket *packet = [[GGPacket alloc] initWithData:data type:GGPacketTypeMove action:GGPacketActionUnknown];
                 [self sendPacket:packet];
@@ -135,12 +154,21 @@
 }
 
 - (void)AIPlayWithMove:(GGMove *)move {
+    _btnReset.enabled = NO;
+    _btnUndo.enabled = NO;
     _boardView.userInteractionEnabled = NO;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [AI update:move];
         GGMove *AIMove = [AI getMove];
         [board makeMove:AIMove];
+        [self saveMove:AIMove];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
+            _btnReset.enabled = YES;
+            if (blackMove != nil && whiteMove != nil) {
+                _btnUndo.enabled = YES;
+            }
+            
             [_boardView insertPieceAtPoint:AIMove.point playerType:AIMove.playerType];
             if ([board checkWinAtPoint:AIMove.point]) {
                 [self handleWin];
@@ -171,6 +199,7 @@
     [self presentViewController:_winAlertController animated:YES completion:nil];
     
     _btnReset.enabled = YES;
+    _btnUndo.enabled = NO;
     _boardView.userInteractionEnabled = NO;
     [self stopTimer];
 }
@@ -180,7 +209,10 @@
     [board initBoard];
     _boardView.userInteractionEnabled = YES;
     playerType = GGPlayerTypeBlack;
-    [_boardView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [_boardView reset];
+    _btnUndo.enabled = NO;
+    blackMove = nil;
+    whiteMove = nil;
 }
 
 - (void)switchPlayer {
@@ -245,12 +277,18 @@
     [_resetWaitAlertController dismissViewControllerAnimated:YES completion:nil];
     [_resetChooseAlertController dismissViewControllerAnimated:YES completion:nil];
     [_resetRejectAlertController dismissViewControllerAnimated:YES completion:nil];
+    [_undoWaitAlertController dismissViewControllerAnimated:YES completion:nil];
+    [_undoChooseAlertController dismissViewControllerAnimated:YES completion:nil];
+    [_undoRejectAlertController dismissViewControllerAnimated:YES completion:nil];
     
     self.winAlertController = nil;
     self.waitAlertController = nil;
     self.resetWaitAlertController = nil;
     self.resetChooseAlertController = nil;
     self.resetRejectAlertController = nil;
+    self.undoWaitAlertController = nil;
+    self.undoChooseAlertController = nil;
+    self.undoRejectAlertController = nil;
 }
 
 
@@ -294,7 +332,12 @@
             [_waitAlertController dismissViewControllerAnimated:YES completion:nil];
             self.waitAlertController = nil;
         }
+        
         [self moveAtPoint:point sendPacketInLAN:NO];
+        if (blackMove != nil && whiteMove != nil && ![board checkWinAtPoint:point]) {
+            _btnUndo.enabled = YES;
+        }
+        
         
     } else if ([packet type] == GGPacketTypeReset) {
         if ([packet action] == GGPacketActionResetRequest) {
@@ -334,6 +377,48 @@
             [self presentViewController:_resetRejectAlertController animated:YES completion:nil];
         }
         
+    } else if (packet.type == GGPacketTypeUndo) {
+        if (packet.action == GGPacketActionUndoRequest) {
+            [self dismissAlertControllers];
+            
+            self.undoChooseAlertController = [UIAlertController alertControllerWithTitle:@"对方请求悔棋" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *actionAgree = [UIAlertAction actionWithTitle:@"同意" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                GGPacket *packet = [[GGPacket alloc] initWithData:nil type:GGPacketTypeUndo action:GGPacketActionUndoAgree];
+                [self sendPacket:packet];
+                [board undoMove:blackMove];
+                [board undoMove:whiteMove];
+                [_boardView removeImageWithCount:2];
+                blackMove = nil;
+                whiteMove = nil;
+                _btnUndo.enabled = NO;
+            }];
+            
+            UIAlertAction *actionReject = [UIAlertAction actionWithTitle:@"拒绝" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                GGPacket *packet = [[GGPacket alloc] initWithData:nil type:GGPacketTypeUndo action:GGPacketActionUndoReject];
+                [self sendPacket:packet];
+            }];
+            
+            [_undoChooseAlertController addAction:actionAgree];
+            [_undoChooseAlertController addAction:actionReject];
+            [self presentViewController:_undoChooseAlertController animated:YES completion:nil];
+        } else if (packet.action == GGPacketActionUndoAgree) {
+            [self dismissAlertControllers];
+            
+            [board undoMove:blackMove];
+            [board undoMove:whiteMove];
+            [_boardView removeImageWithCount:2];
+            blackMove = nil;
+            whiteMove = nil;
+            _btnUndo.enabled = NO;
+        } else if (packet.action == GGPacketActionUndoReject) {
+            [self dismissAlertControllers];
+            
+            self.undoRejectAlertController = [UIAlertController alertControllerWithTitle:@"对方拒绝了你的请求" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            
+            [_undoRejectAlertController addAction:action];
+            [self presentViewController:_undoRejectAlertController animated:YES completion:nil];
+        }
     }
 }
 
@@ -403,7 +488,7 @@
 #pragma mark - IBAction
 
 - (IBAction)btnReset_TouchUp:(UIButton *)sender {
-    
+
     if (_gameMode == GGModeSingle) {
         [self handleReset];
         [self choosePlayerType];
@@ -423,8 +508,7 @@
             self.resetWaitAlertController = [UIAlertController alertControllerWithTitle:@"等待对方回应" message:@"" preferredStyle:UIAlertControllerStyleAlert];
             [self presentViewController:_resetWaitAlertController animated:YES completion:nil];
             
-            NSString *data = @"reset";
-            GGPacket *packet = [[GGPacket alloc] initWithData:data type:GGPacketTypeReset action:GGPacketActionResetRequest];
+            GGPacket *packet = [[GGPacket alloc] initWithData:nil type:GGPacketTypeReset action:GGPacketActionResetRequest];
             [self sendPacket:packet];
         }
     }
@@ -432,6 +516,39 @@
 }
 
 - (IBAction)btnUndo_TouchUp:(UIButton *)sender {
+    if (_gameMode == GGModeSingle) {
+        if (blackMove != nil && whiteMove != nil) {
+            [board undoMove:blackMove];
+            [board undoMove:whiteMove];
+            [AI regret:blackMove];
+            [AI regret:whiteMove];
+            [_boardView removeImageWithCount:2];
+            blackMove = nil;
+            whiteMove = nil;
+            _btnUndo.enabled = NO;
+        }
+    } else if (_gameMode == GGModeDouble) {
+        if (playerType == GGPlayerTypeBlack) {
+            [board undoMove:whiteMove];
+            [_boardView removeImageWithCount:1];
+            [self switchPlayer];
+            _btnUndo.enabled = NO;
+            whiteMove = nil;
+        } else {
+            [board undoMove:blackMove];
+            [_boardView removeImageWithCount:1];
+            [self switchPlayer];
+            _btnUndo.enabled = NO;
+            blackMove = nil;
+        }
+    } else if (_gameMode == GGModeLAN) {
+        self.undoWaitAlertController = [UIAlertController alertControllerWithTitle:@"等待对方回应" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:_undoWaitAlertController animated:YES completion:nil];
+        
+        GGPacket *packet = [[GGPacket alloc] initWithData:nil type:GGPacketTypeUndo action:GGPacketActionUndoRequest];
+        [self sendPacket:packet];
+
+    }
     
 }
 

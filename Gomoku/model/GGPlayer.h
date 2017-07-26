@@ -12,5 +12,6 @@ typedef NS_ENUM(NSInteger, GGDifficulty) {
 - (instancetype)initWithPlayer:(GGPlayerType)playerType difficulty:(GGDifficulty)difficulty;
 - (void)update:(GGMove *)move;
 - (GGMove *)getMove;
+- (void)regret:(GGMove *)move;
 
 @end

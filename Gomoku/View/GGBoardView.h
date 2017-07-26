@@ -17,6 +17,8 @@
 
 - (GGPoint)findPointWithLocation:(CGPoint)location;
 - (void)insertPieceAtPoint:(GGPoint)point playerType:(GGPlayerType)playerType;
+- (void)reset;
+- (void)removeImageWithCount:(int)count;
 
 @end
 

@@ -12,8 +12,10 @@
     CGFloat margin;
     CGFloat interval;
     UIImageView *indicatorView;
+    NSMutableArray *imageViews;
 }
-
+//@property (strong, nonatomic) UIImageView *blackPieceImageView;
+//@property (strong, nonatomic) UIImageView *whitePieceImageView;
 
 @end
 
@@ -25,8 +27,14 @@
     [self addGestureRecognizer: tap];
     
     indicatorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"indicator"]];
+    imageViews = [NSMutableArray array];
     
     return self;
+}
+
+- (void)reset {
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [imageViews removeAllObjects];
 }
 
 - (void)handleTap:(UITapGestureRecognizer *)tapGestureRecognizer {
@@ -57,25 +65,55 @@
 }
 
 - (void)insertPieceAtPoint:(GGPoint)point playerType:(GGPlayerType)playerType{
+    
     NSString *imageName;
     if (playerType == GGPlayerTypeBlack) {
         imageName = @"piece_black";
+//        self.blackPieceImageView = pieceImage;
     } else {
         imageName = @"piece_white";
+//        self.whitePieceImageView = pieceImage;
     }
     
     CGFloat imageSize = interval;
     
     CGFloat originX = margin + point.j * interval - imageSize / 2;
     CGFloat originY = margin + point.i * interval - imageSize / 2;
+//    UIImageView *pieceImage = [[UIImageView alloc] init];
+//    pieceImage.image = [UIImage imageNamed:imageName];
     UIImageView *pieceImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
     CGRect rect = CGRectMake(originX, originY, imageSize, imageSize);
     pieceImage.frame = rect;
+    [imageViews addObject:pieceImage];
     [self addSubview:pieceImage];
     
     indicatorView.frame = rect;
     if (indicatorView.superview != self) {
         [self addSubview:indicatorView];
+    }
+    
+}
+
+//- (void)removeImageForMove:(GGMove *)move {
+//    if (move.playerType == GGPlayerTypeBlack) {
+//        [_blackPieceImageView removeFromSuperview];
+//    } else {
+//        [_whitePieceImageView removeFromSuperview];
+//    }
+//}
+
+- (void)removeImageWithCount:(int)count {
+    for (int i = 0; i < count; i++) {
+        UIImageView *imageView = [imageViews lastObject];
+        [imageView removeFromSuperview];
+        imageView = nil;
+        [imageViews removeLastObject];
+    }
+    UIImageView *imageView = [imageViews lastObject];
+    if (imageView != nil) {
+        indicatorView.frame = imageView.frame;
+    } else {
+        [indicatorView removeFromSuperview];
     }
     
 }
