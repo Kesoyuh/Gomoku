@@ -29,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnReset;
 @property (weak, nonatomic) IBOutlet UILabel *timerWhiteLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timerBlackLabel;
-@property (strong, nonatomic) UIAlertController *resetAlertController;
+@property (strong, nonatomic) UIAlertController *resetWaitAlertController;
 @property (strong, nonatomic) UIAlertController *waitAlertController;
 @property (strong, nonatomic) GCDAsyncSocket *socket;
 
@@ -101,7 +101,7 @@
 
 - (void)moveAtPoint:(GGPoint)point sendPacketInLAN:(BOOL)sendPacket {
     if([board canMoveAtPoint:point]) {
-        
+        _btnReset.enabled = YES;
         GGMove *move = [[GGMove alloc] initWithPlayer:playerType point:point];
         [board makeMove:move];
         
@@ -110,10 +110,8 @@
         if ([board checkWinAtPoint:point]) {
             if (_gameMode == GGModeLAN && sendPacket == YES) {
                 NSDictionary *data = @{ @"i" : @(point.i), @"j" : @(point.j) };
-                GGPacket *packet = [[GGPacket alloc] initWithData:data type:GGPacketTypeMove action:GGPacketPieceUnknown];
-                [self sendPacket:packet andRead:YES];
-            } else {
-                [_socket readDataToLength:sizeof(uint64_t) withTimeout:-1.0 tag:0];
+                GGPacket *packet = [[GGPacket alloc] initWithData:data type:GGPacketTypeMove action:GGPacketActionUnknown];
+                [self sendPacket:packet];
             }
             [self handleWin];
         } else {
@@ -123,8 +121,8 @@
                 [self AIPlayWithMove:move];
             } else if (_gameMode == GGModeLAN && sendPacket == YES) {
                 NSDictionary *data = @{ @"i" : @(point.i), @"j" : @(point.j) };
-                GGPacket *packet = [[GGPacket alloc] initWithData:data type:GGPacketTypeMove action:GGPacketPieceUnknown];
-                [self sendPacket:packet andRead:YES];
+                GGPacket *packet = [[GGPacket alloc] initWithData:data type:GGPacketTypeMove action:GGPacketActionUnknown];
+                [self sendPacket:packet];
                 _boardView.userInteractionEnabled = NO;
             } else if (_gameMode == GGModeLAN && sendPacket == NO) {
                 _boardView.userInteractionEnabled = YES;
@@ -154,7 +152,7 @@
     
 }
 
-- (void)handleWin{
+- (void)handleWin {
     NSString *alertTitle;
     if (playerType == GGPlayerTypeBlack) {
         alertTitle = @"Black Win!";
@@ -170,6 +168,14 @@
     _btnReset.enabled = YES;
     _boardView.userInteractionEnabled = NO;
     [self stopTimer];
+}
+
+- (void)handleReset {
+    [self stopTimer];
+    [board initBoard];
+    _boardView.userInteractionEnabled = YES;
+    playerType = GGPlayerTypeBlack;
+    [_boardView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
 - (void)switchPlayer {
@@ -232,7 +238,7 @@
 
 #pragma mark - Socket related functions
 
-- (void)sendPacket:(GGPacket *)packet andRead:(BOOL)read {
+- (void)sendPacket:(GGPacket *)packet {
     
     // Encode Packet Data
     NSMutableData *packetData = [[NSMutableData alloc] init];
@@ -244,28 +250,14 @@
     NSMutableData *buffer = [[NSMutableData alloc] init];
     
     // Fill Buffer
-    uint64_t headerLength = packetData.length;
-    [buffer appendBytes:&headerLength length:sizeof(uint64_t)];
     [buffer appendBytes:packetData.bytes length:packetData.length];
     
-
     [_socket writeData:buffer withTimeout:-1.0 tag:0];
     
-    if (read) {
-        [_socket readDataToLength:sizeof(uint64_t) withTimeout:-1.0 tag:0];
-
-    }
-    
 }
 
-- (uint64_t)parseHeader:(NSData *)data {
-    uint64_t headerLength = 0;
-    memcpy(&headerLength, [data bytes], sizeof(uint64_t));
-    
-    return headerLength;
-}
 
-- (void)parseBody:(NSData *)data {
+- (void)parseData:(NSData *)data {
     NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
     GGPacket *packet = [unarchiver decodeObjectForKey:@"packet"];
     [unarchiver finishDecoding];
@@ -287,13 +279,42 @@
         [self moveAtPoint:point sendPacketInLAN:NO];
         
     } else if ([packet type] == GGPacketTypeReset) {
-        if (_resetAlertController == nil) {
-            oppositeReset = YES;
-        } else {
-            [_resetAlertController dismissViewControllerAnimated:YES completion:nil];
-            self.resetAlertController = nil;
-            [self startGameInLANMode];
+        if ([packet action] == GGPacketActionResetRequest) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"对方请求重开" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *actionAgree = [UIAlertAction actionWithTitle:@"同意" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                GGPacket *packet = [[GGPacket alloc] initWithData:nil type:GGPacketTypeReset action:GGPacketActionResetAgree];
+                [self sendPacket:packet];
+                [self handleReset];
+                [self startGameInLANMode];
+            }];
+
+            UIAlertAction *actionReject = [UIAlertAction actionWithTitle:@"拒绝" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                GGPacket *packet = [[GGPacket alloc] initWithData:nil type:GGPacketTypeReset action:GGPacketActionResetReject];
+                [self sendPacket:packet];
+            }];
+            
+            [alert addAction:actionAgree];
+            [alert addAction:actionReject];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else if ([packet action] == GGPacketActionResetAgree) {
+            if (_resetWaitAlertController != nil) {
+                [_resetWaitAlertController dismissViewControllerAnimated:YES completion:nil];
+                self.resetWaitAlertController = nil;
+                [self handleReset];
+                [self startGameInLANMode];
+            }
+        } else if ([packet action] == GGPacketActionResetReject) {
+            if (_resetWaitAlertController != nil) {
+                [_resetWaitAlertController dismissViewControllerAnimated:NO completion:nil];
+                self.resetWaitAlertController = nil;
+            }
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"对方拒绝了你的请求" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            
+            [alert addAction:action];
+            [self presentViewController:alert animated:YES completion:nil];
         }
+        
     }
 }
 
@@ -301,14 +322,8 @@
 #pragma mark - GCDAsyncSocketDelegate
 
 - (void)socket:(GCDAsyncSocket *)socket didReadData:(NSData *)data withTag:(long)tag {
-    if (tag == 0) {
-        uint64_t bodyLength = [self parseHeader:data];
-        [socket readDataToLength:bodyLength withTimeout:-1.0 tag:1];
-        
-    } else if (tag == 1) {
-        
-        [self parseBody:data];
-    }
+    [self parseData:data];
+    [socket readDataWithTimeout:-1 tag:1];
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)socket withError:(NSError *)error {
@@ -323,6 +338,16 @@
         _socket = nil;
     }
     [self stopTimer];
+    
+    if (_waitAlertController != nil) {
+        [_waitAlertController dismissViewControllerAnimated:YES completion:nil];
+        self.waitAlertController = nil;
+    }
+    
+    if (_resetWaitAlertController != nil) {
+        [_resetWaitAlertController dismissViewControllerAnimated:YES completion:nil];
+        self.resetWaitAlertController = nil;
+    }
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"对方已经断开连接" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -347,7 +372,8 @@
     [_socket setDelegate:self];
     _boardView.userInteractionEnabled = NO;
     isHost = NO;
-    [_socket readDataToLength:sizeof(uint64_t) withTimeout:-1.0 tag:0];
+    
+    [_socket readDataWithTimeout:-1 tag:1];
     
 }
 
@@ -355,6 +381,7 @@
     self.socket = socket;
     [_socket setDelegate:self];
     isHost = YES;
+    [_socket readDataWithTimeout:-1 tag:1];
 }
 
 - (void)shouldDismiss {
@@ -365,31 +392,29 @@
 #pragma mark - IBAction
 
 - (IBAction)btnReset_TouchUp:(UIButton *)sender {
-    [self stopTimer];
-    [board initBoard];
-    _boardView.userInteractionEnabled = YES;
-    playerType = GGPlayerTypeBlack;
-    [_boardView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     if (_gameMode == GGModeSingle) {
+        [self handleReset];
         [self choosePlayerType];
     } else if (_gameMode == GGModeDouble){
+        [self handleReset];
         [self startTimer];
     } else if (_gameMode == GGModeLAN) {
         if (oppositeReset == YES) {
+            [self handleReset];
             [self startGameInLANMode];
             
             oppositeReset = NO;
             NSString *data = @"reset";
-            GGPacket *packet = [[GGPacket alloc] initWithData:data type:GGPacketTypeReset action:GGPacketPieceUnknown];
-            [self sendPacket:packet andRead:YES];
+            GGPacket *packet = [[GGPacket alloc] initWithData:data type:GGPacketTypeReset action:GGPacketActionUnknown];
+            [self sendPacket:packet];
         } else {
-            self.resetAlertController = [UIAlertController alertControllerWithTitle:@"等待对方重开" message:@"" preferredStyle:UIAlertControllerStyleAlert];
-            [self presentViewController:_resetAlertController animated:YES completion:nil];
+            self.resetWaitAlertController = [UIAlertController alertControllerWithTitle:@"等待对方回应" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            [self presentViewController:_resetWaitAlertController animated:YES completion:nil];
             
             NSString *data = @"reset";
-            GGPacket *packet = [[GGPacket alloc] initWithData:data type:GGPacketTypeReset action:GGPacketPieceUnknown];
-            [self sendPacket:packet andRead:NO];
+            GGPacket *packet = [[GGPacket alloc] initWithData:data type:GGPacketTypeReset action:GGPacketActionResetRequest];
+            [self sendPacket:packet];
         }
     }
     
