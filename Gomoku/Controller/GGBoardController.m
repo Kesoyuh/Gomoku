@@ -30,7 +30,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *timerWhiteLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timerBlackLabel;
 @property (strong, nonatomic) UIAlertController *resetWaitAlertController;
+@property (strong, nonatomic) UIAlertController *resetChooseAlertController;
+@property (strong, nonatomic) UIAlertController *resetRejectAlertController;
 @property (strong, nonatomic) UIAlertController *waitAlertController;
+@property (strong, nonatomic) UIAlertController *winAlertController;
 @property (strong, nonatomic) GCDAsyncSocket *socket;
 
 
@@ -160,10 +163,12 @@
         alertTitle = @"White Win!";
     }
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    [self dismissAlertControllers];
+    
+    self.winAlertController = [UIAlertController alertControllerWithTitle:alertTitle message:@"" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-    [alert addAction:action];
-    [self presentViewController:alert animated:YES completion:nil];
+    [_winAlertController addAction:action];
+    [self presentViewController:_winAlertController animated:YES completion:nil];
     
     _btnReset.enabled = YES;
     _boardView.userInteractionEnabled = NO;
@@ -234,6 +239,19 @@
     }
 }
 
+- (void) dismissAlertControllers {
+    [_winAlertController dismissViewControllerAnimated:YES completion:nil];
+    [_waitAlertController dismissViewControllerAnimated:YES completion:nil];
+    [_resetWaitAlertController dismissViewControllerAnimated:YES completion:nil];
+    [_resetChooseAlertController dismissViewControllerAnimated:YES completion:nil];
+    [_resetRejectAlertController dismissViewControllerAnimated:YES completion:nil];
+    
+    self.winAlertController = nil;
+    self.waitAlertController = nil;
+    self.resetWaitAlertController = nil;
+    self.resetChooseAlertController = nil;
+    self.resetRejectAlertController = nil;
+}
 
 
 #pragma mark - Socket related functions
@@ -280,7 +298,10 @@
         
     } else if ([packet type] == GGPacketTypeReset) {
         if ([packet action] == GGPacketActionResetRequest) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"对方请求重开" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            
+            [self dismissAlertControllers];
+            
+            self.resetChooseAlertController = [UIAlertController alertControllerWithTitle:@"对方请求重开" message:@"" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *actionAgree = [UIAlertAction actionWithTitle:@"同意" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 GGPacket *packet = [[GGPacket alloc] initWithData:nil type:GGPacketTypeReset action:GGPacketActionResetAgree];
                 [self sendPacket:packet];
@@ -293,26 +314,24 @@
                 [self sendPacket:packet];
             }];
             
-            [alert addAction:actionAgree];
-            [alert addAction:actionReject];
-            [self presentViewController:alert animated:YES completion:nil];
+            [_resetChooseAlertController addAction:actionAgree];
+            [_resetChooseAlertController addAction:actionReject];
+            [self presentViewController:_resetChooseAlertController animated:YES completion:nil];
+            
         } else if ([packet action] == GGPacketActionResetAgree) {
-            if (_resetWaitAlertController != nil) {
-                [_resetWaitAlertController dismissViewControllerAnimated:YES completion:nil];
-                self.resetWaitAlertController = nil;
-                [self handleReset];
-                [self startGameInLANMode];
-            }
+            [self dismissAlertControllers];
+            
+            [self handleReset];
+            [self startGameInLANMode];
+            
         } else if ([packet action] == GGPacketActionResetReject) {
-            if (_resetWaitAlertController != nil) {
-                [_resetWaitAlertController dismissViewControllerAnimated:NO completion:nil];
-                self.resetWaitAlertController = nil;
-            }
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"对方拒绝了你的请求" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            [self dismissAlertControllers];
+            
+            self.resetRejectAlertController = [UIAlertController alertControllerWithTitle:@"对方拒绝了你的请求" message:@"" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
             
-            [alert addAction:action];
-            [self presentViewController:alert animated:YES completion:nil];
+            [_resetRejectAlertController addAction:action];
+            [self presentViewController:_resetRejectAlertController animated:YES completion:nil];
         }
         
     }
@@ -339,15 +358,7 @@
     }
     [self stopTimer];
     
-    if (_waitAlertController != nil) {
-        [_waitAlertController dismissViewControllerAnimated:YES completion:nil];
-        self.waitAlertController = nil;
-    }
-    
-    if (_resetWaitAlertController != nil) {
-        [_resetWaitAlertController dismissViewControllerAnimated:YES completion:nil];
-        self.resetWaitAlertController = nil;
-    }
+    [self dismissAlertControllers];
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"对方已经断开连接" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
