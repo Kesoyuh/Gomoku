@@ -10,19 +10,19 @@
 
 NSString * const GGPacketKeyData = @"data";
 NSString * const GGPacketKeyType = @"type";
-NSString * const GGPacketKeyPiece = @"piece";
+NSString * const GGPacketKeyAction = @"piece";
 
 @implementation GGPacket
 
 #pragma mark - Initializer
 
-- (id)initWithData:(id)data type:(GGPacketType)type action:(GGPacketPiece)piece {
+- (id)initWithData:(id)data type:(GGPacketType)type action:(GGPacketAction)action {
     self = [super init];
     
     if (self) {
         self.data = data;
         self.type = type;
-        self.piece = piece;
+        self.action = action;
     }
     return self;
 }
@@ -33,7 +33,7 @@ NSString * const GGPacketKeyPiece = @"piece";
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:self.data forKey:GGPacketKeyData];
     [coder encodeInteger:self.type forKey:GGPacketKeyType];
-    [coder encodeInteger:self.piece forKey:GGPacketKeyPiece];
+    [coder encodeInteger:self.action forKey:GGPacketKeyAction];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -42,7 +42,7 @@ NSString * const GGPacketKeyPiece = @"piece";
     if (self) {
         [self setData:[decoder decodeObjectForKey:GGPacketKeyData]];
         [self setType:[decoder decodeIntegerForKey:GGPacketKeyType]];
-        [self setPiece:[decoder decodeIntegerForKey:GGPacketKeyPiece]];
+        [self setAction:[decoder decodeIntegerForKey:GGPacketKeyAction]];
     }
     
     return self;

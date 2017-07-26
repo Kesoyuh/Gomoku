@@ -10,7 +10,7 @@
 
 extern NSString * const GGPacketKeyData;
 extern NSString * const GGPacketKeyType;
-extern NSString * const GGPacketKeyPiece;
+extern NSString * const GGPacketKeyAction;
 
 typedef NS_ENUM(NSInteger, GGPacketType) {
     GGPacketTypeUnknown,
@@ -18,18 +18,19 @@ typedef NS_ENUM(NSInteger, GGPacketType) {
     GGPacketTypeReset
 };
 
-typedef NS_ENUM(NSInteger, GGPacketPiece) {
-    GGPacketPieceBlack,
-    GGPacketPieceWhite,
-    GGPacketPieceUnknown
+typedef NS_ENUM(NSInteger, GGPacketAction) {
+    GGPacketActionUnknown,
+    GGPacketActionResetRequest,
+    GGPacketActionResetAgree,
+    GGPacketActionResetReject
 };
 
 @interface GGPacket : NSObject
 
 @property (strong, nonatomic) id data;
 @property (assign, nonatomic) GGPacketType type;
-@property (assign, nonatomic) GGPacketPiece piece;
+@property (assign, nonatomic) GGPacketAction action;
 
-- (id)initWithData:(id)data type:(GGPacketType)type action:(GGPacketPiece)piece;
+- (id)initWithData:(id)data type:(GGPacketType)type action:(GGPacketAction)piece;
 
 @end
