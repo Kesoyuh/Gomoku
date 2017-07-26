@@ -42,6 +42,14 @@
     }
 }
 
+- (void)regret:(GGMove *)move {
+    if (move == nil) {
+        NSLog(@"!!!!Error!!!!");
+    } else {
+        [_board undoMove:move];
+    }
+}
+
 - (GGMove *)getMove {
     if ([_board isEmpty]) {
         GGPoint point;
