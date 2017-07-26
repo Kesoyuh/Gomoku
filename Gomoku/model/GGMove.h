@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, GGPlayerType)
-{
+typedef NS_ENUM(NSInteger, GGPlayerType) {
     GGPlayerTypeBlack,
     GGPlayerTypeWhite
 };

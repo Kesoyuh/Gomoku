@@ -44,6 +44,20 @@ typedef struct {
 - (GGMove *)getBestMove {
     int score;
     
+    int blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
+    int whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
+    
+    // let greedy ai make the first move
+    if (blackScore * whiteScore == 0) {
+        _bestMove = [[GGMove alloc] initWithPlayer:_playerType point:[self getBestPoint]];
+        [self makeMove:_bestMove];
+        blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
+        whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
+        NSLog(@"Current black score: %d", blackScore);
+        NSLog(@"Current white score: %d", whiteScore);
+        return _bestMove;
+    }
+    
     // iterative deepening
     for (int deep = 2; deep <= MAX_DEEP; deep += 2) {
         score = [self MinimaxWithDepth:deep who:1 alpha:-[self maxEvaluateValue] beta:[self maxEvaluateValue]];
@@ -58,8 +72,8 @@ typedef struct {
     }
     
     [self makeMove:_bestMove];
-    int blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
-    int whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
+    blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
+    whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
     NSLog(@"Current black score: %d", blackScore);
     NSLog(@"Current white score: %d", whiteScore);
     return _bestMove;

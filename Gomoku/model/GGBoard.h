@@ -2,8 +2,7 @@
 
 static int const GRID_SIZE = 15;
 
-typedef NS_ENUM(NSInteger, GGPieceType)
-{
+typedef NS_ENUM(NSInteger, GGPieceType) {
     GGPieceTypeBlank,
     GGPieceTypeBlack,
     GGPieceTypeWhite
