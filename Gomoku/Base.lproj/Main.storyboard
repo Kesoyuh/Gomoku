@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gff-J2-rJE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gff-J2-rJE">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -96,6 +96,7 @@
                     <connections>
                         <outlet property="backgroundImage" destination="ON4-gt-h0R" id="fHl-aS-loy"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="startGame" animates="NO" id="tTv-zl-Q2l"/>
+                        <segue destination="9n1-J1-Jam" kind="show" identifier="settings" animates="NO" id="zb6-pd-wyo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="szG-Rc-sRi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -152,7 +153,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sKd-Mt-p5S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="324" y="892.80359820089961"/>
+            <point key="canvasLocation" x="935" y="862"/>
         </scene>
         <!--Board Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -274,6 +275,93 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="8Lv-zY-Sq9">
+            <objects>
+                <viewController id="9n1-J1-Jam" customClass="GGSettingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zfj-1d-9hy"/>
+                        <viewControllerLayoutGuide type="bottom" id="1oD-iH-3Ed"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7uk-8D-JBM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="fov-WW-UGe">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HCA-35-QgW" userLabel="musicSwitch">
+                                <rect key="frame" x="256" y="278" width="51" height="31"/>
+                                <color key="onTintColor" red="0.1333333333" green="0.43137254899999999" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zTB-vJ-WgQ" userLabel="soundSwitch">
+                                <rect key="frame" x="256" y="367" width="51" height="31"/>
+                                <color key="onTintColor" red="0.1333333333" green="0.43137254899999999" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            </switch>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="anF-G8-Si4">
+                                <rect key="frame" x="70" y="191" width="235" height="29"/>
+                                <segments>
+                                    <segment title="简单"/>
+                                    <segment title="中等"/>
+                                    <segment title="困难"/>
+                                </segments>
+                                <color key="tintColor" red="0.1333333333" green="0.43137254899999999" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="难度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYv-Mz-0nt">
+                                <rect key="frame" x="70" y="142" width="49" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="音乐" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nh-Sn-UI9">
+                                <rect key="frame" x="70" y="279" width="49" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="音效" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Wx-4R-yt2">
+                                <rect key="frame" x="70" y="368" width="49" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29I-B4-dIt">
+                                <rect key="frame" x="163" y="446" width="49" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="返回">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fov-WW-UGe" secondAttribute="trailing" id="0Q0-TI-f8E"/>
+                            <constraint firstItem="OYv-Mz-0nt" firstAttribute="leading" secondItem="7uk-8D-JBM" secondAttribute="leading" constant="70" id="0e1-h3-QdA"/>
+                            <constraint firstItem="29I-B4-dIt" firstAttribute="centerX" secondItem="fov-WW-UGe" secondAttribute="centerX" id="6Pj-UA-eOJ"/>
+                            <constraint firstItem="9nh-Sn-UI9" firstAttribute="centerY" secondItem="7uk-8D-JBM" secondAttribute="centerY" constant="-40" id="72n-eV-KGf"/>
+                            <constraint firstItem="anF-G8-Si4" firstAttribute="centerX" secondItem="fov-WW-UGe" secondAttribute="centerX" id="B7V-4K-0YI"/>
+                            <constraint firstAttribute="trailing" secondItem="zTB-vJ-WgQ" secondAttribute="trailing" constant="70" id="E0p-0z-ox1"/>
+                            <constraint firstItem="HCA-35-QgW" firstAttribute="centerY" secondItem="9nh-Sn-UI9" secondAttribute="centerY" id="J36-Ud-xoW"/>
+                            <constraint firstItem="9nh-Sn-UI9" firstAttribute="leading" secondItem="7uk-8D-JBM" secondAttribute="leading" constant="70" id="Ktc-eL-epr"/>
+                            <constraint firstItem="9nh-Sn-UI9" firstAttribute="top" secondItem="anF-G8-Si4" secondAttribute="bottom" constant="60" id="Lq0-jz-8TP"/>
+                            <constraint firstItem="1oD-iH-3Ed" firstAttribute="top" secondItem="29I-B4-dIt" secondAttribute="bottom" constant="180" id="OMB-8Q-et9"/>
+                            <constraint firstItem="1oD-iH-3Ed" firstAttribute="top" secondItem="fov-WW-UGe" secondAttribute="bottom" id="beo-mN-PQc"/>
+                            <constraint firstAttribute="trailing" secondItem="HCA-35-QgW" secondAttribute="trailing" constant="70" id="drG-GO-w9X"/>
+                            <constraint firstAttribute="trailing" secondItem="anF-G8-Si4" secondAttribute="trailing" constant="70" id="eFG-GJ-RMv"/>
+                            <constraint firstItem="fov-WW-UGe" firstAttribute="top" secondItem="7uk-8D-JBM" secondAttribute="top" id="gUK-nx-gLb"/>
+                            <constraint firstItem="anF-G8-Si4" firstAttribute="leading" secondItem="7uk-8D-JBM" secondAttribute="leading" constant="70" id="gch-1T-4ZI"/>
+                            <constraint firstItem="4Wx-4R-yt2" firstAttribute="leading" secondItem="7uk-8D-JBM" secondAttribute="leading" constant="70" id="hwl-Hk-Ssb"/>
+                            <constraint firstItem="fov-WW-UGe" firstAttribute="leading" secondItem="7uk-8D-JBM" secondAttribute="leading" id="nNC-xE-BuR"/>
+                            <constraint firstItem="anF-G8-Si4" firstAttribute="top" secondItem="OYv-Mz-0nt" secondAttribute="bottom" constant="20" id="qA2-TU-Y2V"/>
+                            <constraint firstItem="4Wx-4R-yt2" firstAttribute="top" secondItem="9nh-Sn-UI9" secondAttribute="bottom" constant="60" id="qbw-ab-ewq"/>
+                            <constraint firstItem="zTB-vJ-WgQ" firstAttribute="centerY" secondItem="4Wx-4R-yt2" secondAttribute="centerY" id="yge-gm-Jet"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lx1-qI-sW6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-615.20000000000005" y="861.3193403298352"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="RJu-1g-Zi7">
             <objects>
@@ -291,7 +379,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jK3-PC-4rX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-615.20000000000005" y="892.80359820089961"/>
+            <point key="canvasLocation" x="137" y="863"/>
         </scene>
     </scenes>
     <resources>
