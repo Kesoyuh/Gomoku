@@ -215,15 +215,15 @@ NSString * const INFO_OPPONENT_TURN = @"对方回合";
 - (void)handleWin {
     NSString *alertTitle;
     if (playerType == GGPlayerTypeBlack) {
-        alertTitle = @"Black Win!";
+        alertTitle = @"黑方获胜!";
     } else {
-        alertTitle = @"White Win!";
+        alertTitle = @"白方获胜!";
     }
     
     [self dismissAlertControllers];
     
     self.winAlertController = [UIAlertController alertControllerWithTitle:alertTitle message:@"" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
     [_winAlertController addAction:action];
     [self presentViewController:_winAlertController animated:YES completion:nil];
     
@@ -589,6 +589,7 @@ NSString * const INFO_OPPONENT_TURN = @"对方回合";
 - (IBAction)btnBack_TouchUp:(UIButton *)sender {
     [timer invalidate];
     timer = nil;
+    [_socket disconnect];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 @end
