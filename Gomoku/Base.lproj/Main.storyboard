@@ -299,15 +299,21 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="fov-WW-UGe">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HCA-35-QgW" userLabel="musicSwitch">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HCA-35-QgW" userLabel="switchMusic">
                                 <rect key="frame" x="256" y="278" width="51" height="31"/>
                                 <color key="onTintColor" red="0.1333333333" green="0.43137254899999999" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="switchMusic_ValueChanged:" destination="9n1-J1-Jam" eventType="valueChanged" id="wa6-M8-UDz"/>
+                                </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zTB-vJ-WgQ" userLabel="soundSwitch">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zTB-vJ-WgQ" userLabel="switchSound">
                                 <rect key="frame" x="256" y="367" width="51" height="31"/>
                                 <color key="onTintColor" red="0.1333333333" green="0.43137254899999999" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="switchSound_ValueChanged:" destination="9n1-J1-Jam" eventType="valueChanged" id="eKs-hh-xED"/>
+                                </connections>
                             </switch>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="anF-G8-Si4">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="anF-G8-Si4" userLabel="segmentDifficulty">
                                 <rect key="frame" x="70" y="191" width="235" height="29"/>
                                 <segments>
                                     <segment title="简单"/>
@@ -315,6 +321,9 @@
                                     <segment title="困难"/>
                                 </segments>
                                 <color key="tintColor" red="0.1333333333" green="0.43137254899999999" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="segementDifficulty_ValueChanged:" destination="9n1-J1-Jam" eventType="valueChanged" id="6qf-v6-s70"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="难度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYv-Mz-0nt">
                                 <rect key="frame" x="70" y="142" width="49" height="29"/>
@@ -334,38 +343,50 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29I-B4-dIt">
-                                <rect key="frame" x="163" y="446" width="49" height="41"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="返回">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29I-B4-dIt" userLabel="btnBack">
+                                <rect key="frame" x="149.5" y="467" width="76" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="76" id="EAr-NB-CxD"/>
+                                    <constraint firstAttribute="height" constant="40" id="h3U-zL-25J"/>
+                                </constraints>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="back">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnBack_TouchUp:" destination="9n1-J1-Jam" eventType="touchUpInside" id="LO0-4P-owu"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fov-WW-UGe" secondAttribute="trailing" id="0Q0-TI-f8E"/>
                             <constraint firstItem="OYv-Mz-0nt" firstAttribute="leading" secondItem="7uk-8D-JBM" secondAttribute="leading" constant="70" id="0e1-h3-QdA"/>
-                            <constraint firstItem="29I-B4-dIt" firstAttribute="centerX" secondItem="fov-WW-UGe" secondAttribute="centerX" id="6Pj-UA-eOJ"/>
                             <constraint firstItem="9nh-Sn-UI9" firstAttribute="centerY" secondItem="7uk-8D-JBM" secondAttribute="centerY" constant="-40" id="72n-eV-KGf"/>
                             <constraint firstItem="anF-G8-Si4" firstAttribute="centerX" secondItem="fov-WW-UGe" secondAttribute="centerX" id="B7V-4K-0YI"/>
                             <constraint firstAttribute="trailing" secondItem="zTB-vJ-WgQ" secondAttribute="trailing" constant="70" id="E0p-0z-ox1"/>
                             <constraint firstItem="HCA-35-QgW" firstAttribute="centerY" secondItem="9nh-Sn-UI9" secondAttribute="centerY" id="J36-Ud-xoW"/>
                             <constraint firstItem="9nh-Sn-UI9" firstAttribute="leading" secondItem="7uk-8D-JBM" secondAttribute="leading" constant="70" id="Ktc-eL-epr"/>
                             <constraint firstItem="9nh-Sn-UI9" firstAttribute="top" secondItem="anF-G8-Si4" secondAttribute="bottom" constant="60" id="Lq0-jz-8TP"/>
-                            <constraint firstItem="1oD-iH-3Ed" firstAttribute="top" secondItem="29I-B4-dIt" secondAttribute="bottom" constant="180" id="OMB-8Q-et9"/>
                             <constraint firstItem="1oD-iH-3Ed" firstAttribute="top" secondItem="fov-WW-UGe" secondAttribute="bottom" id="beo-mN-PQc"/>
                             <constraint firstAttribute="trailing" secondItem="HCA-35-QgW" secondAttribute="trailing" constant="70" id="drG-GO-w9X"/>
                             <constraint firstAttribute="trailing" secondItem="anF-G8-Si4" secondAttribute="trailing" constant="70" id="eFG-GJ-RMv"/>
+                            <constraint firstItem="1oD-iH-3Ed" firstAttribute="top" secondItem="29I-B4-dIt" secondAttribute="bottom" constant="160" id="f73-4b-YoA"/>
                             <constraint firstItem="fov-WW-UGe" firstAttribute="top" secondItem="7uk-8D-JBM" secondAttribute="top" id="gUK-nx-gLb"/>
                             <constraint firstItem="anF-G8-Si4" firstAttribute="leading" secondItem="7uk-8D-JBM" secondAttribute="leading" constant="70" id="gch-1T-4ZI"/>
                             <constraint firstItem="4Wx-4R-yt2" firstAttribute="leading" secondItem="7uk-8D-JBM" secondAttribute="leading" constant="70" id="hwl-Hk-Ssb"/>
+                            <constraint firstItem="29I-B4-dIt" firstAttribute="centerX" secondItem="fov-WW-UGe" secondAttribute="centerX" id="lHb-qC-0W2"/>
                             <constraint firstItem="fov-WW-UGe" firstAttribute="leading" secondItem="7uk-8D-JBM" secondAttribute="leading" id="nNC-xE-BuR"/>
                             <constraint firstItem="anF-G8-Si4" firstAttribute="top" secondItem="OYv-Mz-0nt" secondAttribute="bottom" constant="20" id="qA2-TU-Y2V"/>
                             <constraint firstItem="4Wx-4R-yt2" firstAttribute="top" secondItem="9nh-Sn-UI9" secondAttribute="bottom" constant="60" id="qbw-ab-ewq"/>
                             <constraint firstItem="zTB-vJ-WgQ" firstAttribute="centerY" secondItem="4Wx-4R-yt2" secondAttribute="centerY" id="yge-gm-Jet"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="segmentDifficulty" destination="anF-G8-Si4" id="JoA-NR-yJg"/>
+                        <outlet property="switchMusic" destination="HCA-35-QgW" id="rOb-fq-KZw"/>
+                        <outlet property="switchSound" destination="zTB-vJ-WgQ" id="dcs-HW-Y6x"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lx1-qI-sW6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -394,6 +415,7 @@
     <resources>
         <image name="LANGame" width="430" height="125"/>
         <image name="LANGame_highlighted" width="430" height="125"/>
+        <image name="back" width="210" height="105"/>
         <image name="background" width="930" height="1000"/>
         <image name="background2" width="1198" height="1472"/>
         <image name="double" width="430" height="125"/>

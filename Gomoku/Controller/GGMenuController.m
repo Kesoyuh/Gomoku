@@ -1,14 +1,9 @@
-//
-//  GGMenuController.m
-//  Gomoku
-//
-//  Created by Changchang on 2/6/17.
-//  Copyright © 2017 University of Melbourne. All rights reserved.
-//
-
 #import "GGMenuController.h"
 #import "GGBoardController.h"
 #import "GGPlayer.h"
+
+NSString * const MUSIC_NAME = @"music.mp3";
+NSString * const MOVE_SOUND_NAME = @"move.wav";
 
 @interface GGMenuController ()
 
@@ -24,6 +19,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupBackgroundImage];
+    [self initPlayers];
+}
+
+- (void)initPlayers {
+    _musicPlayer = [self playerWithFile:MUSIC_NAME];
+    _musicPlayer.numberOfLoops = -1;
+    
+    _moveSoundPlayer = [self playerWithFile:MOVE_SOUND_NAME];
+    
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"music"] == 1) {
+        [_musicPlayer play];
+    }
+}
+
+- (AVAudioPlayer *)playerWithFile:(NSString *)file {
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:file ofType:nil];
+    NSURL *url = [NSURL fileURLWithPath:filePath];
+    AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    [player prepareToPlay];
+    
+    return player;
 }
 
 - (void)setupBackgroundImage {

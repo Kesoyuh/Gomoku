@@ -1,14 +1,8 @@
-//
-//  GGBoardController.m
-//  Gomoku
-//
-//  Created by Changchang on 27/5/17.
-//  Copyright © 2017 University of Melbourne. All rights reserved.
-//
-
 #import "GGBoardController.h"
 #import "GGPacket.h"
 #import "GGHostListController.h"
+#import "GGMenuController.h"
+
 @import CocoaAsyncSocket;
 
 NSString * const INFO_YOUR_TURN = @"您的回合";
@@ -100,15 +94,32 @@ NSString * const INFO_OPPONENT_TURN = @"对方回合";
 
 - (void)choosePlayerType {
 
+    GGDifficulty difficulty;
+    
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"difficulty"]) {
+        case 0:
+            difficulty = GGDifficultyEasy;
+            break;
+        case 1:
+            difficulty = GGDifficultyMedium;
+            break;
+        case 2:
+            difficulty = GGDifficultyHard;
+            break;
+        default:
+            difficulty = GGDifficultyEasy;
+            break;
+    }
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请选择先后手" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *actionBlack = [UIAlertAction actionWithTitle:@"先手" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self startTimer];
-        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeWhite difficulty:GGDifficultyEasy];
+        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeWhite difficulty:difficulty];
         _lblInformation.text = INFO_YOUR_TURN;
     }];
     UIAlertAction *actionWhite = [UIAlertAction actionWithTitle:@"后手" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self startTimer];
-        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeBlack difficulty:GGDifficultyEasy];
+        AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeBlack difficulty:difficulty];
         [self AIPlayWithMove:nil];
         _lblInformation.text = INFO_OPPONENT_TURN;
     }];
@@ -136,6 +147,10 @@ NSString * const INFO_OPPONENT_TURN = @"对方回合";
         [self saveMove:move];
         
         [_boardView insertPieceAtPoint:point playerType:playerType];
+        
+        // play move sound
+        GGMenuController *menuController = (GGMenuController *)self.presentingViewController;
+        [menuController.moveSoundPlayer play];
         
         if ([board checkWinAtPoint:point]) {
             if (_gameMode == GGModeLAN && sendPacket == YES) {
@@ -179,6 +194,11 @@ NSString * const INFO_OPPONENT_TURN = @"对方回合";
             }
             
             [_boardView insertPieceAtPoint:AIMove.point playerType:AIMove.playerType];
+            
+            // play move sound
+            GGMenuController *menuController = (GGMenuController *)self.presentingViewController;
+            [menuController.moveSoundPlayer play];
+            
             if ([board checkWinAtPoint:AIMove.point]) {
                 [self handleWin];
                 NSLog(@"win %ld", (long)playerType);

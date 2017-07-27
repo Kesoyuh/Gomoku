@@ -26,6 +26,8 @@
 		7BE071911F10D01100A6BB03 /* GGGreedyAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE071901F10D01100A6BB03 /* GGGreedyAI.m */; };
 		7BE071941F10DC8B00A6BB03 /* GGMinimaxAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE071931F10DC8B00A6BB03 /* GGMinimaxAI.m */; };
 		7BE367E51F29DF0C00961F17 /* GGSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE367E41F29DF0C00961F17 /* GGSettingsViewController.m */; };
+		7BE367EB1F2A308400961F17 /* move.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7BE367E81F2A308400961F17 /* move.wav */; };
+		7BE367EC1F2A308400961F17 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BE367E91F2A308400961F17 /* music.mp3 */; };
 		B655F7E0DA1B8DCF62EF1682 /* Pods_Gomoku.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD9DBAC9E17C13B7F6A10D2 /* Pods_Gomoku.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +68,8 @@
 		7BE071931F10DC8B00A6BB03 /* GGMinimaxAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGMinimaxAI.m; sourceTree = "<group>"; };
 		7BE367E31F29DF0C00961F17 /* GGSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGSettingsViewController.h; path = Controller/GGSettingsViewController.h; sourceTree = "<group>"; };
 		7BE367E41F29DF0C00961F17 /* GGSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GGSettingsViewController.m; path = Controller/GGSettingsViewController.m; sourceTree = "<group>"; };
+		7BE367E81F2A308400961F17 /* move.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = move.wav; sourceTree = "<group>"; };
+		7BE367E91F2A308400961F17 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +135,7 @@
 				0C31C1DA1ED9521600B35F43 /* Controller */,
 				0C31C1D41ED914BC00B35F43 /* View */,
 				7BBBFC3E1ED9151200B6A9FD /* Model */,
+				7BE367E61F2A308400961F17 /* Resource */,
 				0CC96DAD1ED1583C00484771 /* AppDelegate.h */,
 				0CC96DAE1ED1583C00484771 /* AppDelegate.m */,
 				0CCA87851EE12290006CAA70 /* Assets.xcassets */,
@@ -168,6 +173,23 @@
 			);
 			name = Model;
 			path = model;
+			sourceTree = "<group>";
+		};
+		7BE367E61F2A308400961F17 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				7BE367E71F2A308400961F17 /* Sound */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		7BE367E71F2A308400961F17 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				7BE367E81F2A308400961F17 /* move.wav */,
+				7BE367E91F2A308400961F17 /* music.mp3 */,
+			);
+			path = Sound;
 			sourceTree = "<group>";
 		};
 		D9A003FD14468D48AB4FF4B5 /* Pods */ = {
@@ -252,9 +274,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BE367EC1F2A308400961F17 /* music.mp3 in Resources */,
 				0CC96DBA1ED1583C00484771 /* LaunchScreen.storyboard in Resources */,
 				0CC96DB51ED1583C00484771 /* Main.storyboard in Resources */,
 				0CCA87861EE12290006CAA70 /* Assets.xcassets in Resources */,
+				7BE367EB1F2A308400961F17 /* move.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

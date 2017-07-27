@@ -1,13 +1,9 @@
-//
-//  GGMenuController.h
-//  Gomoku
-//
-//  Created by Changchang on 2/6/17.
-//  Copyright © 2017 University of Melbourne. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface GGMenuController : UIViewController
+
+@property (nonatomic,strong) AVAudioPlayer *musicPlayer;
+@property (nonatomic,strong) AVAudioPlayer *moveSoundPlayer;
 
 @end
