@@ -11,6 +11,9 @@
 #import "GGHostListController.h"
 @import CocoaAsyncSocket;
 
+NSString * const INFO_YOUR_TURN = @"您的回合";
+NSString * const INFO_OPPONENT_TURN = @"对方回合";
+
 @interface GGBoardController () <GCDAsyncSocketDelegate, GGHostListControllerDelegate> {
     GGBoard *board;
     GGPlayerType playerType;
@@ -27,6 +30,7 @@
     GGMove *blackMove;
 }
 
+@property (weak, nonatomic) IBOutlet UILabel *lblInformation;
 @property (weak, nonatomic) IBOutlet UIButton *btnReset;
 @property (weak, nonatomic) IBOutlet UIButton *btnUndo;
 @property (weak, nonatomic) IBOutlet UILabel *timerWhiteLabel;
@@ -85,8 +89,11 @@
 - (void)startGameInLANMode {
     [self startTimer];
     if (!isHost) {
+        _lblInformation.text = INFO_OPPONENT_TURN;
         self.waitAlertController = [UIAlertController alertControllerWithTitle:@"请等待对方先下" message:@"" preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:_waitAlertController animated:YES completion:nil];
+    } else {
+        _lblInformation.text = INFO_YOUR_TURN;
     }
     
 }
@@ -97,11 +104,13 @@
     UIAlertAction *actionBlack = [UIAlertAction actionWithTitle:@"先手" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self startTimer];
         AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeWhite difficulty:GGDifficultyEasy];
+        _lblInformation.text = INFO_YOUR_TURN;
     }];
     UIAlertAction *actionWhite = [UIAlertAction actionWithTitle:@"后手" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self startTimer];
         AI = [[GGPlayer alloc] initWithPlayer:GGPlayerTypeBlack difficulty:GGDifficultyEasy];
         [self AIPlayWithMove:nil];
+        _lblInformation.text = INFO_OPPONENT_TURN;
     }];
     [alert addAction:actionBlack];
     [alert addAction:actionWhite];
@@ -220,6 +229,11 @@
         playerType = GGPlayerTypeWhite;
     } else {
         playerType = GGPlayerTypeBlack;
+    }
+    if (_lblInformation.text == INFO_YOUR_TURN) {
+        _lblInformation.text = INFO_OPPONENT_TURN;
+    } else if (_lblInformation.text == INFO_OPPONENT_TURN) {
+        _lblInformation.text = INFO_YOUR_TURN;
     }
 }
 

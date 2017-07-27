@@ -241,6 +241,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACk-3A-9fj">
+                                <rect key="frame" x="187.5" y="106.5" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -248,11 +254,13 @@
                             <constraint firstItem="gJa-S5-K6L" firstAttribute="leading" secondItem="1ro-mA-jLg" secondAttribute="trailing" constant="16" id="6fk-Uy-9HA"/>
                             <constraint firstItem="5W6-ck-WiD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="J19-Yp-DoC"/>
                             <constraint firstAttribute="leading" secondItem="1ro-mA-jLg" secondAttribute="leading" constant="-16" id="LOE-14-ncF"/>
+                            <constraint firstItem="ACk-3A-9fj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="M3J-LO-l9y"/>
                             <constraint firstItem="n2U-k8-2MV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NIA-94-gr3"/>
                             <constraint firstItem="n2U-k8-2MV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="RAI-IT-1on"/>
                             <constraint firstItem="5W6-ck-WiD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WA7-rI-HaB"/>
                             <constraint firstItem="5W6-ck-WiD" firstAttribute="top" secondItem="b3Q-zD-5w4" secondAttribute="bottom" constant="22" id="cJS-Ik-2WP"/>
                             <constraint firstAttribute="trailing" secondItem="5W6-ck-WiD" secondAttribute="trailing" id="fnD-Fs-bSf"/>
+                            <constraint firstItem="ACk-3A-9fj" firstAttribute="centerY" secondItem="1ro-mA-jLg" secondAttribute="centerY" id="fol-6Q-rKR"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="n2U-k8-2MV" secondAttribute="bottom" id="gtl-Gv-H4R"/>
                             <constraint firstAttribute="trailing" secondItem="n2U-k8-2MV" secondAttribute="trailing" id="l16-H5-l7N"/>
                             <constraint firstItem="5W6-ck-WiD" firstAttribute="top" secondItem="1ro-mA-jLg" secondAttribute="bottom" constant="22" id="uf8-Fb-2KN"/>
@@ -265,6 +273,7 @@
                         <outlet property="boardView" destination="5W6-ck-WiD" id="xY7-V4-BdM"/>
                         <outlet property="btnReset" destination="3Sr-lK-4Yy" id="GeT-9J-M6T"/>
                         <outlet property="btnUndo" destination="ygw-EM-FBB" id="doe-qn-M7m"/>
+                        <outlet property="lblInformation" destination="ACk-3A-9fj" id="Ejw-Aw-PBh"/>
                         <outlet property="timerBlackLabel" destination="gJa-S5-K6L" id="C3l-FI-pwE"/>
                         <outlet property="timerWhiteLabel" destination="Vnl-P2-PRz" id="7Ul-Hk-m84"/>
                         <segue destination="9z8-Qw-ryS" kind="show" identifier="findGame" id="ClO-o0-3BM"/>
