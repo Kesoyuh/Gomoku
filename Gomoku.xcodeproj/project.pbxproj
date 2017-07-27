@@ -25,6 +25,7 @@
 		7BBBFC471ED94EDD00B6A9FD /* GGPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBFC461ED94EDD00B6A9FD /* GGPlayer.m */; };
 		7BE071911F10D01100A6BB03 /* GGGreedyAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE071901F10D01100A6BB03 /* GGGreedyAI.m */; };
 		7BE071941F10DC8B00A6BB03 /* GGMinimaxAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE071931F10DC8B00A6BB03 /* GGMinimaxAI.m */; };
+		7BE367E51F29DF0C00961F17 /* GGSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE367E41F29DF0C00961F17 /* GGSettingsViewController.m */; };
 		B655F7E0DA1B8DCF62EF1682 /* Pods_Gomoku.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD9DBAC9E17C13B7F6A10D2 /* Pods_Gomoku.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,8 @@
 		7BE071901F10D01100A6BB03 /* GGGreedyAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGGreedyAI.m; sourceTree = "<group>"; };
 		7BE071921F10DC8B00A6BB03 /* GGMinimaxAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGMinimaxAI.h; sourceTree = "<group>"; };
 		7BE071931F10DC8B00A6BB03 /* GGMinimaxAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGMinimaxAI.m; sourceTree = "<group>"; };
+		7BE367E31F29DF0C00961F17 /* GGSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GGSettingsViewController.h; path = Controller/GGSettingsViewController.h; sourceTree = "<group>"; };
+		7BE367E41F29DF0C00961F17 /* GGSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GGSettingsViewController.m; path = Controller/GGSettingsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,8 @@
 				0CCA87831EE10F8D006CAA70 /* GGMenuController.m */,
 				0C06D0181F14C8D70037B86D /* GGHostListController.h */,
 				0C06D0191F14C8D70037B86D /* GGHostListController.m */,
+				7BE367E31F29DF0C00961F17 /* GGSettingsViewController.h */,
+				7BE367E41F29DF0C00961F17 /* GGSettingsViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -311,6 +316,7 @@
 				7BBBFC411ED9193200B6A9FD /* GGMove.m in Sources */,
 				0C06D01A1F14C8D70037B86D /* GGHostListController.m in Sources */,
 				7BE071911F10D01100A6BB03 /* GGGreedyAI.m in Sources */,
+				7BE367E51F29DF0C00961F17 /* GGSettingsViewController.m in Sources */,
 				0C06D01D1F1633700037B86D /* GGPacket.m in Sources */,
 				0CC96DAF1ED1583C00484771 /* AppDelegate.m in Sources */,
 				0C31C1D71ED914F400B35F43 /* GGBoardView.m in Sources */,

@@ -47,20 +47,22 @@
 }
 
 - (IBAction)btnSetting_TouchUp:(UIButton *)sender {
+    [self performSegueWithIdentifier:@"settings" sender:sender];
     
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UIButton *button = sender;
-    NSLog(@"%@", button.titleLabel.text);
-    GGBoardController *boardController = segue.destinationViewController;
-    if ([button.titleLabel.text isEqual: @"单人游戏"]) {
-        boardController.gameMode = GGModeSingle;
-        
-    } else if ([button.titleLabel.text isEqual: @"双人游戏"]) {
-        boardController.gameMode = GGModeDouble;
-    } else if ([button.titleLabel.text isEqual: @"联机游戏"]) {
-        boardController.gameMode = GGModeLAN;
+    if ([segue.identifier isEqualToString:@"startGame"]) {
+        UIButton *button = sender;
+        NSLog(@"%@", button.titleLabel.text);
+        GGBoardController *boardController = segue.destinationViewController;
+        if ([button.titleLabel.text isEqual: @"单人游戏"]) {
+            boardController.gameMode = GGModeSingle;
+        } else if ([button.titleLabel.text isEqual: @"双人游戏"]) {
+            boardController.gameMode = GGModeDouble;
+        } else if ([button.titleLabel.text isEqual: @"联机游戏"]) {
+            boardController.gameMode = GGModeLAN;
+        }
     }
 }
 @end
