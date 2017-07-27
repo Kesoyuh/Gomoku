@@ -31,6 +31,21 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSUserDefaults *pref = [NSUserDefaults standardUserDefaults];
+    if ([pref objectForKey:@"LAN_mode_tip_showed"] == nil) {
+        [pref setObject:@1 forKey:@"LAN_mode_tip_showed"];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"局域网对战" message:@"请确保您和对方的手机处于同一局域网下，以保证局域网联机顺利进行" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:action];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
+    
+}
+
 - (void)startBroadcast {
     // Initialize GCDAsyncSocket
     self.serverSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
@@ -133,8 +148,8 @@
     [self startBroadcast];
     
     if (_alertController == nil) {
-        _alertController = [UIAlertController alertControllerWithTitle:@"Waiting for player to join in..." message:@"" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        _alertController = [UIAlertController alertControllerWithTitle:@"正在等待其他玩家加入..." message:@"" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             [self stopBroadcast];
         }];
 

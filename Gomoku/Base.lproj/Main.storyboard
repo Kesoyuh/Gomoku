@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gff-J2-rJE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gff-J2-rJE">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -72,9 +72,7 @@
                                     <constraint firstAttribute="width" constant="160" id="EuY-Bd-lFl"/>
                                     <constraint firstAttribute="height" constant="50" id="aqR-RM-cAW"/>
                                 </constraints>
-                                <state key="normal" title="设        置" image="settings">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
+                                <state key="normal" title="设        置" image="settings"/>
                                 <state key="highlighted" image="settings_highlighted"/>
                                 <connections>
                                     <action selector="btnSetting_TouchUp:" destination="gff-J2-rJE" eventType="touchUpInside" id="Alv-Th-A99"/>
@@ -103,7 +101,7 @@
             </objects>
             <point key="canvasLocation" x="-615.20000000000005" y="136.28185907046478"/>
         </scene>
-        <!--Host List-->
+        <!--主机列表-->
         <scene sceneID="Dko-y9-kbd">
             <objects>
                 <tableViewController id="woV-5j-7yh" customClass="GGHostListController" sceneMemberID="viewController">
@@ -135,13 +133,13 @@
                             <outlet property="delegate" destination="woV-5j-7yh" id="IUR-ZR-C7M"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Host List" id="gSq-au-vu2">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="Hbl-kZ-L9g">
+                    <navigationItem key="navigationItem" title="主机列表" id="gSq-au-vu2">
+                        <barButtonItem key="leftBarButtonItem" title="返回" id="Hbl-kZ-L9g">
                             <connections>
                                 <action selector="btnBack_TouchUp:" destination="woV-5j-7yh" id="6rR-tC-wwo"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Create Game" id="KZV-XA-Ypc">
+                        <barButtonItem key="rightBarButtonItem" title="新建游戏" id="KZV-XA-Ypc">
                             <connections>
                                 <action selector="btnCreateGame_TouchUp:" destination="woV-5j-7yh" id="xuQ-7A-iMZ"/>
                             </connections>
@@ -177,41 +175,40 @@
                                     <constraint firstAttribute="width" secondItem="5W6-ck-WiD" secondAttribute="height" multiplier="1:1" id="lQl-j0-OKh"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Sr-lK-4Yy">
-                                <rect key="frame" x="75" y="580" width="40" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="重开">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <state key="disabled" title="重开">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Sr-lK-4Yy">
+                                <rect key="frame" x="62" y="556" width="50" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="Mui-og-tTM"/>
+                                    <constraint firstAttribute="width" constant="50" id="jYU-d4-oLm"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="reset"/>
+                                <state key="disabled" title="重开"/>
                                 <connections>
                                     <action selector="btnReset_TouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Apm-gF-Sph"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ygw-EM-FBB">
-                                <rect key="frame" x="165" y="578" width="44" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="悔棋">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <state key="disabled" title="悔棋">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ygw-EM-FBB">
+                                <rect key="frame" x="162" y="556" width="50" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="SDq-aZ-5dL"/>
+                                    <constraint firstAttribute="width" constant="50" id="cJz-jv-AfE"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="undo"/>
+                                <state key="disabled" title="悔棋"/>
                                 <connections>
                                     <action selector="btnUndo_TouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IT7-CC-6TE"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="swV-Ud-EZf">
-                                <rect key="frame" x="258" y="578" width="48" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="返回">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="swV-Ud-EZf" userLabel="Btn Back">
+                                <rect key="frame" x="262" y="556" width="50" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="9PP-Fn-VfS"/>
+                                    <constraint firstAttribute="width" constant="50" id="Pf1-2i-uRj"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="back"/>
                                 <connections>
                                     <action selector="btnBack_TouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zx6-f3-7f5"/>
                                 </connections>
@@ -244,7 +241,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACk-3A-9fj">
                                 <rect key="frame" x="187.5" y="106.5" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -253,17 +250,23 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="b3Q-zD-5w4" secondAttribute="trailing" constant="16" id="3aZ-hq-Ddo"/>
                             <constraint firstItem="gJa-S5-K6L" firstAttribute="leading" secondItem="1ro-mA-jLg" secondAttribute="trailing" constant="16" id="6fk-Uy-9HA"/>
+                            <constraint firstItem="3Sr-lK-4Yy" firstAttribute="centerY" secondItem="ygw-EM-FBB" secondAttribute="centerY" id="81c-ap-zzg"/>
+                            <constraint firstItem="swV-Ud-EZf" firstAttribute="centerY" secondItem="ygw-EM-FBB" secondAttribute="centerY" id="Edk-Eu-4TA"/>
                             <constraint firstItem="5W6-ck-WiD" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="J19-Yp-DoC"/>
+                            <constraint firstItem="ygw-EM-FBB" firstAttribute="leading" secondItem="3Sr-lK-4Yy" secondAttribute="trailing" constant="50" id="K8u-8h-dUM"/>
                             <constraint firstAttribute="leading" secondItem="1ro-mA-jLg" secondAttribute="leading" constant="-16" id="LOE-14-ncF"/>
                             <constraint firstItem="ACk-3A-9fj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="M3J-LO-l9y"/>
                             <constraint firstItem="n2U-k8-2MV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NIA-94-gr3"/>
                             <constraint firstItem="n2U-k8-2MV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="RAI-IT-1on"/>
+                            <constraint firstItem="swV-Ud-EZf" firstAttribute="leading" secondItem="ygw-EM-FBB" secondAttribute="trailing" constant="50" id="RIl-kE-Hbn"/>
                             <constraint firstItem="5W6-ck-WiD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WA7-rI-HaB"/>
+                            <constraint firstItem="ygw-EM-FBB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XLh-bJ-1yn"/>
                             <constraint firstItem="5W6-ck-WiD" firstAttribute="top" secondItem="b3Q-zD-5w4" secondAttribute="bottom" constant="22" id="cJS-Ik-2WP"/>
                             <constraint firstAttribute="trailing" secondItem="5W6-ck-WiD" secondAttribute="trailing" id="fnD-Fs-bSf"/>
                             <constraint firstItem="ACk-3A-9fj" firstAttribute="centerY" secondItem="1ro-mA-jLg" secondAttribute="centerY" id="fol-6Q-rKR"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="n2U-k8-2MV" secondAttribute="bottom" id="gtl-Gv-H4R"/>
                             <constraint firstAttribute="trailing" secondItem="n2U-k8-2MV" secondAttribute="trailing" id="l16-H5-l7N"/>
+                            <constraint firstItem="ygw-EM-FBB" firstAttribute="top" secondItem="5W6-ck-WiD" secondAttribute="bottom" constant="35" id="pRt-Q0-xrg"/>
                             <constraint firstItem="5W6-ck-WiD" firstAttribute="top" secondItem="1ro-mA-jLg" secondAttribute="bottom" constant="22" id="uf8-Fb-2KN"/>
                             <constraint firstItem="b3Q-zD-5w4" firstAttribute="leading" secondItem="Vnl-P2-PRz" secondAttribute="trailing" constant="16" id="vRO-eQ-Wkp"/>
                             <constraint firstItem="gJa-S5-K6L" firstAttribute="centerY" secondItem="1ro-mA-jLg" secondAttribute="centerY" id="vrj-WF-jDe"/>
@@ -394,15 +397,18 @@
     <resources>
         <image name="LANGame" width="430" height="125"/>
         <image name="LANGame_highlighted" width="430" height="125"/>
+        <image name="back" width="210" height="105"/>
         <image name="background" width="930" height="1000"/>
         <image name="background2" width="1198" height="1472"/>
         <image name="double" width="430" height="125"/>
         <image name="double_highlighted" width="430" height="125"/>
         <image name="piece_black" width="80" height="80"/>
         <image name="piece_white" width="80" height="80"/>
+        <image name="reset" width="210" height="105"/>
         <image name="settings" width="430" height="125"/>
         <image name="settings_highlighted" width="430" height="125"/>
         <image name="single" width="430" height="125"/>
         <image name="single_highlighted" width="430" height="125"/>
+        <image name="undo" width="210" height="105"/>
     </resources>
 </document>
