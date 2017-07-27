@@ -35,17 +35,13 @@
 }
 
 - (void)update:(GGMove *)move {
-    if (move == nil) {
-        NSLog(@"!!!!Error!!!!");
-    } else {
+    if (move != nil) {
         [_board makeMove:move];
     }
 }
 
 - (void)regret:(GGMove *)move {
-    if (move == nil) {
-        NSLog(@"!!!!Error!!!!");
-    } else {
+    if (move != nil) {
         [_board undoMove:move];
     }
 }

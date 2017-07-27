@@ -51,19 +51,11 @@ typedef struct {
         score = [self MinimaxWithDepth:deep who:1 alpha:-[self maxEvaluateValue] beta:[self maxEvaluateValue]];
         if (score >= GGTupleTypeLiveFour) {
             [self makeMove:_bestMove];
-            int blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
-            int whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
-            NSLog(@"Current black score: %d", blackScore);
-            NSLog(@"Current white score: %d", whiteScore);
             return _bestMove;
         }
     }
     
     [self makeMove:_bestMove];
-    int blackScore = [self evaluateWithPieceType:GGPieceTypeBlack];
-    int whiteScore = [self evaluateWithPieceType:GGPieceTypeWhite];
-    NSLog(@"Current black score: %d", blackScore);
-    NSLog(@"Current white score: %d", whiteScore);
     return _bestMove;
 }
 
