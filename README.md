@@ -51,7 +51,55 @@ GGTupleTypePolluted = 0
 
 ### 2. 双人同屏
 
+此模式支持两位玩家在同一手机上一同下棋。
+
 ### 3. 联机游戏
+
+在局域网联机模式下，两台处于同一子网的手机可通过网络进行连接并一同下棋。游戏使用[Bonjour](https://developer.apple.com/bonjour/)（[维基页面](https://zh.wikipedia.org/wiki/Bonjour)）作为局域网内广播服务（棋局）和寻找棋局的解决方案。当找到棋局后，游戏使用[GCDAsyncSocket](https://github.com/robbiehanson/CocoaAsyncSocket)来建立网络连接，进而进行网络通信。
+
+游戏定义了网络间包的类型与内容，以确保通信的简介与准确。包的类型分为三中：下棋，悔棋和重赛。当游戏的任何一方希望进行悔棋或重赛时，需得到对方同意。因此网络包有以下定义：
+
+```objc
+// GGPacket.h
+
+......
+
+// 包类型
+typedef NS_ENUM(NSInteger, GGPacketType) {
+	// 未知类型
+    GGPacketTypeUnknown,
+    // 下棋
+    GGPacketTypeMove,
+    // 重赛
+    GGPacketTypeReset,
+    // 悔棋
+    GGPacketTypeUndo
+};
+
+// 包具体动作
+typedef NS_ENUM(NSInteger, GGPacketAction) {
+    GGPacketActionUnknown,
+    // 重赛请求/同意/拒绝
+    GGPacketActionResetRequest,
+    GGPacketActionResetAgree,
+    GGPacketActionResetReject,
+    // 悔棋请求/同意/拒绝
+    GGPacketActionUndoRequest,
+    GGPacketActionUndoAgree,
+    GGPacketActionUndoReject
+};
+
+@interface GGPacket : NSObject
+
+// data用来在下棋类型的包中存放棋的坐标
+@property (strong, nonatomic) id data;
+@property (assign, nonatomic) GGPacketType type;
+@property (assign, nonatomic) GGPacketAction action;
+
+......
+
+@end
+```
 
 ### 4. 其他功能
 
