@@ -473,6 +473,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tianchang Wang (A9BPW3967F)";
 				DEVELOPMENT_TEAM = 6UL3FL2Q5W;
 				INFOPLIST_FILE = Gomoku/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tianchang.GomokuMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -489,6 +490,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tianchang Wang (6UL3FL2Q5W)";
 				DEVELOPMENT_TEAM = 6UL3FL2Q5W;
 				INFOPLIST_FILE = Gomoku/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tianchang.GomokuMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
