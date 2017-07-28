@@ -2,7 +2,7 @@
 
 ## 一、游戏截图
 
-<img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot1.png" width="250"> < img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot3.png" width="250"> < img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot2.png" width="250">
+<img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot1.png" width="250"> <img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot3.png" width="250"> <img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot2.png" width="250">
 
 <img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/single.gif" width="250">
 <img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/LAN.gif" width="500">
