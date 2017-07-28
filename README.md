@@ -2,10 +2,10 @@
 
 ## 一、游戏截图
 
-< img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot1.png" width="250"> < img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot3.png" width="250"> < img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot2.png" width="250">
+<img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot1.png" width="250"> < img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot3.png" width="250"> < img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot2.png" width="250">
 
-< img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/single.gif" width="250">
-< img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/LAN.gif" width="500">
+<img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/single.gif" width="250">
+<img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/LAN.gif" width="500">
 
 ## 二、功能介绍
 
@@ -121,17 +121,17 @@ typedef NS_ENUM(NSInteger, GGPacketAction) {
 
 下面是我们的五子棋与 Google 搜索 Gomoku 排名第一的[五子棋游戏](http://gomoku.yjyao.com/)进行对战的截图：
 
-< img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/%E5%85%88%E6%89%8B%E8%83%9C.png" width="500">
+<img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/%E5%85%88%E6%89%8B%E8%83%9C.png" width="500">
 
 先手情况下，轻松取胜。
 
-< img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/%E5%90%8E%E6%89%8B%E8%83%9C.png" width="500">
+<img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/%E5%90%8E%E6%89%8B%E8%83%9C.png" width="500">
 
 后手情况下，经过一番鏖战，取得胜利。
 
 下面是与 Github 上面有名的五子棋程序 [Gobang](https://github.com/lihongxun945/gobang) 进行对战的截图：
 
-< img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/%E5%AF%B9%E6%88%98%20GoBang.png" width="500">
+<img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/%E5%AF%B9%E6%88%98%20GoBang.png" width="500">
 
 由于 GoBang 不能设置先后手，这是在我方后手的情况下，最终取得了胜利。
 
