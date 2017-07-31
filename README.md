@@ -1,5 +1,7 @@
 # 五子棋大师
 
+Developed by [@张添](https://github.com/genosage) and [@王唱畅](https://github.com/Kesoyuh)
+
 ## 一、游戏截图
 
 <img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot1.png" width="250"> <img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot3.png" width="250"> <img src="https://github.com/Kesoyuh/Gomoku/blob/master/Screenshots/Screenshot2.png" width="250">
