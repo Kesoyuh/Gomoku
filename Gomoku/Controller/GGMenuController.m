@@ -18,6 +18,8 @@ NSString * const MOVE_SOUND_NAME = @"move.wav";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"%@", self.presentingViewController);
+    NSLog(@"%@", self.presentedViewController);
     [self setupBackgroundImage];
     [self initPlayers];
 }

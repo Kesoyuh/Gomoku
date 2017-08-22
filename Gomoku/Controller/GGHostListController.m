@@ -141,7 +141,6 @@
     self.clientSocket = nil;
     [self.delegate shouldDismiss];
     [self dismissViewControllerAnimated:YES completion:nil];
-
 }
 
 - (IBAction)btnCreateGame_TouchUp:(UIBarButtonItem *)sender {

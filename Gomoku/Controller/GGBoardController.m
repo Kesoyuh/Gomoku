@@ -48,7 +48,6 @@ NSString * const INFO_OPPONENT_TURN = @"对方回合";
     [super viewDidLoad];
     board = [[GGBoard alloc] init];
     
-    
     // First piece will always be black
     playerType = GGPlayerTypeBlack;
 }
