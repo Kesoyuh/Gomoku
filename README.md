@@ -1,6 +1,4 @@
-# 五子棋大师（已上架）
-
-iTunes 地址：https://itunes.apple.com/cn/app/id1264708584?mt=8
+# 五子棋大师
 
 Developed by [@张添](https://github.com/genosage) and [@王唱畅](https://github.com/Kesoyuh)
 
